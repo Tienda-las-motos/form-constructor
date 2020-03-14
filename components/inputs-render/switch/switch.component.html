@@ -1,0 +1,21 @@
+<div class="col s12">
+    <div class="label-cont">
+        <label [for]="input.ID">
+        {{input.etiqueta}}
+    </label>
+        <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    </div>
+    <div class="switch" [id]="input.ID">
+        <label>
+          {{input.trueText}}
+          <input type="checkbox"
+                 [value]="setValue()"
+                 (change)="getValue.emit({
+                 key:input.ID,
+                 value:$event.target.value
+                 })">
+          <span class="lever"></span>
+          {{input.falseText}}
+      </label>
+    </div>
+</div>

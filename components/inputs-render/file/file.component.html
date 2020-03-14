@@ -1,0 +1,10 @@
+<div class="file-field input-field">
+    <div class="btn">
+        <span>{{input.etiqueta}}</span>
+        <input type="file">
+    </div>
+    <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" [placeholder]="input.placeholder">
+    </div>
+    <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+</div>

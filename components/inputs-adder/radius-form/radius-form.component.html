@@ -1,0 +1,19 @@
+<div class="col s12 m4 input-field">
+
+    <div class="opcion" *ngFor="let opcion of _adder.$opcionesArray; index as i">
+        <p>
+            <input class="with-gap" [name]="opcion.index" type="radio" [id]="opcion.index" />
+            <label [for]="opcion.index"></label>
+            <input class="opcion-input" type="text" [name]="opcion.index" [id]="opcion.index" [value]="opcion.value" (blur)="_adder.addOpcionValue(opcion.index, $event.target.value)" />
+            <span class="del-opcion" (click)="_adder.delOpcion(i)"><i class="fas fa-times"></i></span>
+        </p>
+
+    </div>
+
+    <p class="opcion-nueva">
+        <input class="with-gap" name="radius-nueva" type="radio" id="radius-nueva" />
+        <label for="opcion-nueva"></label>
+        <input class="opcion-nueva" type="text" name="opcion-nueva" id="opcion-nueva" (focus)="_adder.addOpcionField()" placeholder="Opción nueva" />
+    </p>
+
+</div>

@@ -1,0 +1,10 @@
+<div class="col s12 multiple">
+    <div class="label-cont">
+        <label [for]="input.ID"> {{input.etiqueta}} </label>
+        <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    </div>
+    <p *ngFor="let opcion of input.opciones">
+        <input class="filled-in" [value]="setValue()" [name]="opcion.index" type="checkbox" [id]="opcion.index" (click)="toggleOpcion(opcion.value, $event.target.checked)" />
+        <label [for]="opcion.index">{{opcion.value}}</label>
+    </p>
+</div>

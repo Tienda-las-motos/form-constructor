@@ -1,0 +1,20 @@
+<div class="col s12 level-input">
+    <div class="label-cont">
+        <label [for]="input.ID">
+            {{input.etiqueta}}
+        </label>
+        <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    </div>
+    <p class="range-field">
+        <span class="label">
+            {{input.minText}}
+        </span>
+        <span class="label" style="float: right;">
+            {{input.maxText}}
+        </span>
+        <input type="range" [id]="input.ID" [value]="setValue()" [min]="input.minCant" [max]="input.maxCant" (change)="getValue.emit({
+            key:input.ID, 
+            value: +$event.target.value
+        })" />
+    </p>
+</div>

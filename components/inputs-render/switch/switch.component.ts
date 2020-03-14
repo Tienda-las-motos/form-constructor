@@ -1,0 +1,29 @@
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { SwitchModel } from './switch-input.model';
+
+@Component({
+  selector: 'Gdev-switch',
+  templateUrl: './switch.component.html',
+  styleUrls: ['./switch.component.scss']
+})
+export class SwitchComponent implements OnInit {
+
+  @Input() input: SwitchModel
+  @Input() value
+  @Output() getValue: EventEmitter<any> = new EventEmitter()
+  constructor() {
+    this.input = new SwitchModel('','',false, '','')
+   }
+
+  ngOnInit() {
+  }
+
+  setValue() {
+    if (typeof this.value === 'object') {
+      return this.value ? this.value[this.input.ID] : false
+    } else {
+      return this.value ? this.value : false
+    }
+  }
+
+}

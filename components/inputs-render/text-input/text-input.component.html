@@ -1,0 +1,11 @@
+<div class="col s12 input-field input-text">
+    <input type="text" [id]="input.ID" [name]="input.ID" [value]="setValue()" [required]="input.requerido" placeholder="{{ input.placeholder }}" (blur)="getValue.emit(
+        {
+            key:input.ID, 
+            value:$event.target.value
+        })" />
+    <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    <label [for]="input.ID" [ngClass]="{ active: input.placeholder || value }">{{
+        input.etiqueta
+    }}</label>
+</div>

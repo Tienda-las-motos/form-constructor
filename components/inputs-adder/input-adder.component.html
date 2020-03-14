@@ -1,0 +1,106 @@
+<!-- <div class="row">
+</div> -->
+<div class="row" id="data-form">
+    <p>AGREGAR ATRIBUTO</p>
+    <form action="#" onsubmit="return false" #addInput="ngForm">
+
+        <div class="row" id="tipo-selecter">
+            <div class="col s12 m4">
+                <label for="tipo">Tipo de input</label>
+                <select name="tipo" [(ngModel)]="inputModel.tipo" id="inputTipo">
+                    <option value="" disabled selected>Elige un tipo</option>
+                    <option class="" *ngFor="let tipo of inputTypes" [value]="tipo.type">
+                        {{tipo.displayName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col s8 m4 input-field">
+                <input type="text" name="ID" id="ID" placeholder="Ej: primerNombre" [(ngModel)]="inputModel.ID" #ID="ngModel" pattern="[A-Za-z]{1,}" required />
+                <label for="ID" class="active">Identificador</label>
+            </div>
+            <div class="col s4">
+                <label for="">Requerido</label>
+                <div class="switch">
+                    <label>
+                        <input type="checkbox"
+                               name="requerido"
+                               [(ngModel)]="inputModel.requerido" />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="data-required">
+
+            <div class="col s12 m4 input-field">
+                <input type="text" name="etiqueta" id="etiqueta" placeholder="Ej: Primer Nombre" value="Input sin nombre" [(ngModel)]="inputModel.etiqueta" #etiqueta="ngModel" required />
+                <label for="etiqueta" class="active">Etiqueta</label>
+            </div>
+
+            <div class="col s12 m4 input-field">
+                <textarea name="info" class="materialize-textarea" id="info" cols="30" rows="10" [(ngModel)]="inputModel.info" placeholder=" (Opcional) Descripción del input "></textarea>
+                <label for="info" class="active">Descripción o información</label>
+            </div>
+
+            <div class="col s12 m4 input-field" *ngIf="inputModel.tipo == 'text' || 
+            inputModel.tipo == 'number' || 
+            inputModel.tipo == 'select' || 
+            inputModel.tipo == 'textarea' || 
+            inputModel.tipo == 'file'">
+                <input type="text" name="placeholder" id="placeholder" placeholder="Algo como esto" [(ngModel)]="inputModel.placeholder" #placeholder="ngModel" />
+                <label for="placeholder" class="active">Placeholder</label>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="row" id="data-extra">
+            <div [ngSwitch]="inputModel.tipo">
+                <div *ngSwitchCase="'number'">
+                    <Gdev-number-form></Gdev-number-form>
+                </div>
+                <div *ngSwitchCase="'phone'">
+                    <Gdev-number-form></Gdev-number-form>
+                </div>
+                <div *ngSwitchCase="'select'">
+                    <Gdev-select-form></Gdev-select-form>
+                </div>
+                <div *ngSwitchCase="'radius'">
+                    <Gdev-radius-form></Gdev-radius-form>
+                </div>
+                <div *ngSwitchCase="'switch'">
+                    <Gdev-switch-form></Gdev-switch-form>
+                </div>
+                <div *ngSwitchCase="'range'">
+                    <Gdev-range-form></Gdev-range-form>
+                </div>
+                <div *ngSwitchCase="'level'">
+                    <Gdev-level-form></Gdev-level-form>
+                </div>
+                <div *ngSwitchCase="'multiple'">
+                    <Gdev-multiple-form></Gdev-multiple-form>
+                </div>
+                <div *ngSwitchDefault></div>
+            </div>
+
+        </div>
+
+        <div class="row" id="bottom-bar">
+            <div class="col s12 m6">
+
+                <div class="col s4">
+
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <button class="btn" (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
+                Agregar
+            </button>
+            </div>
+        </div>
+
+        <div class="col s6"></div>
+    </form>
+</div>

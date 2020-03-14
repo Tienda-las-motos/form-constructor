@@ -1,0 +1,9 @@
+<div class="col s12 m4 input-field">
+
+    <div class="opcion" *ngFor="let opcion of _adder.$opcionesArray; index as i">
+        <input class="opcion-input" type="text" name="opcion.index" id="opcion.index" [value]="opcion.value" (blur)="_adder.addOpcionValue(opcion.index, $event.target.value)" />
+        <span class="del-opcion" (click)="_adder.delOpcion(i)"><i class="fas fa-times"></i></span>
+    </div>
+
+    <input class="opcion-nueva" type="text" name="opcion" id="opcion" placeholder="Agregar opcion" (focus)="_adder.addOpcionField()" />
+</div>
