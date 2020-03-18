@@ -1,35 +1,54 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewEncapsulation, Input } from '@angular/core';
 import { InputModel } from './input models/input.model';
 import { InputAdderService } from './input-adder.service';
+import { InputTypes } from "./input models/inputTypes.model";
 
 @Component({
   selector: 'Gdev-input-adder',
   templateUrl: './input-adder.component.html',
-  styleUrls: ['./input-adder.component.scss']
+  styleUrls: ['./input-adder.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class InputAdderComponent implements OnInit {
 
   inputTypes
+  @Input() selectedInputTypes: any[]
   inputModel: InputModel
   inputType: string
   inputExtras: INPUTEXTRA[] = []
+  mediaWidth: string
   
   INPUT: any
   
   constructor(
     public _inputAdder: InputAdderService
   ) {
-    this.inputTypes = this._inputAdder.loadInputTypes
-    this.inputModel = new InputModel('', '', '', false, '','')
+    this.inputModel = new InputModel('', '', '', false)
    }
 
   ngOnInit() {
+    this.responsiveFields()
     this._inputAdder.loadInputTypes()
       .subscribe(types => {
         this.inputTypes = types
       })
     
     $('#info').trigger('autoresize');
+    this.loadInputTypes()
+  }
+
+  loadInputTypes() {
+    if (!this.selectedInputTypes) {
+      // this.inputTypes = this._inputAdder.loadInputTypes
+      this.inputTypes = InputTypes
+    } else {
+      this.inputTypes = []
+      let types = InputTypes
+      this.selectedInputTypes.forEach(inputType => {
+        let theType = types.find(type => type.type == inputType)
+        this.inputTypes.push(theType)
+      })
+    }
   }
 
   checkOptions():boolean {
@@ -58,14 +77,25 @@ export class InputAdderComponent implements OnInit {
   waitFor = (ms) => new Promise(r => setTimeout(r, ms))
   
   onRequired(e) {
-    console.log(e.target)
   }
 
   async onCreate() {
     await this.waitFor(100)
-    console.log(this.inputModel)
     await this._inputAdder.addInput(this.inputModel)
     this.inputModel = new InputModel('', '', '', false)
+  }
+
+
+  responsiveFields() {
+    var containerWidth = $("#Gdev-new-form").width()
+
+    if (containerWidth > 1200) {
+      this.mediaWidth = 's4'
+    } else if (containerWidth < 1200 && containerWidth > 900) {
+      this.mediaWidth = 's6'
+    } else if (containerWidth < 900 ) {
+      this.mediaWidth = 's12'
+    }
   }
 
 }

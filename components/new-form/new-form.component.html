@@ -1,15 +1,16 @@
-<div class="container">
+<div class="container" id="Gdev-new-form">
     <form onsubmit="return false" action="#" #addForm="ngForm">
         <div class="row" id="form-name" *ngIf="!formName || formName == ''">
             <div class="col s12 input-field">
-                <input type="text" name="formName" id="formName" [(ngModel)]="formName">
+                <input type="text" name="formName" id="formName" [(ngModel)]="newFormName">
                 <label for="formName">Nombre del formulario</label>
             </div>
         </div>
         <div class="row" id="input-adder">
-            <Gdev-input-adder></Gdev-input-adder>
+            <Gdev-input-adder [selectedInputTypes]="inputTypes"></Gdev-input-adder>
         </div>
         <div class="row" id="input-list">
+            <h6>Campos agregados</h6>
             <div class="input-item" *ngFor="let input of Inputs">
                 <Gdev-inputs-render [input]="input"></Gdev-inputs-render>
                 <span class="delInput" (click)="delInput(input.ID)">

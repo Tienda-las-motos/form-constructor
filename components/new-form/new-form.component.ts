@@ -3,6 +3,9 @@ import { InputModel } from '../inputs-adder/input models/input.model';
 import { InputAdderService } from '../inputs-adder/input-adder.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormConstructorService } from '../../form-constructor.service';
+import { Location } from '@angular/common';
+
+
 
 @Component({
   selector: 'Gdev-new-form',
@@ -19,12 +22,15 @@ export class NewFormComponent implements OnInit {
   inputToadd: any
   @Input() collection: string
   @Input() formName: string
+  @Input() inputTypes: []
   idForm: string
+  newFormName: string
 
   constructor(
     private _inputAdder: InputAdderService,
     private _formConst: FormConstructorService,
-    private fs: AngularFirestore
+    private fs: AngularFirestore,
+    private location: Location
   ) {
     this.Inputs = []
     if (!this.collection) this.collection = 'formularios'
@@ -35,6 +41,8 @@ export class NewFormComponent implements OnInit {
     this.callForm()
     this.catchInputs()
   }
+
+  
 
   async catchInputs() {
     this._inputAdder.catchNewInput.subscribe(input => {
@@ -75,23 +83,27 @@ export class NewFormComponent implements OnInit {
 
 
     // Search and delete in firestore
-    const collRef = this.fs.collection(this.collection).ref
-    const formRef = collRef.doc(this.idForm)
-    const inputsForm = await formRef.collection('inputs')
-                            .where('ID', '==', idInput).get()
-                            
-    if (inputsForm.size > 0) {
-      var inputToDel = inputsForm.docs[0].id
-      formRef.collection('inputs').doc(inputToDel).delete()
-    } 
+    if (this.idForm) {
+      
+      const collRef = this.fs.collection(this.collection).ref
+      const formRef = collRef.doc(this.idForm)
+      const inputsForm = await formRef.collection('inputs')
+                              .where('ID', '==', idInput).get()
+                              
+      if (inputsForm.size > 0) {
+        var inputToDel = inputsForm.docs[0].id
+        formRef.collection('inputs').doc(inputToDel).delete()
+      } 
+
+    }
 
 
   }
 
   async saveForm() {
-
-    this._formConst.saveForm(this.collection, this.formName, this.Inputs)
-
+    // if (this.newFormName) this.formName = this.newFormName
+    this._formConst.saveForm(this.collection, this.formName || this.newFormName, this.Inputs)
+    this._formConst.complete.subscribe(end => { if (end) this.location.back() })
   }
 
 }
