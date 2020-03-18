@@ -46,7 +46,7 @@ export class FormConstructorService {
     
     
     
-    if (!formCreated.exists) {
+    if (!formCreated) {
 
       const newColl = await collRef.add({nombre: formName})
       collId = newColl.id
