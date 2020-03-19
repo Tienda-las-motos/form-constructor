@@ -3,6 +3,7 @@ import { InputTypes } from './components/inputs-adder/input models/inputTypes.mo
 import { Observable, of, Subject } from 'rxjs';
 import { InputModel } from './components/inputs-adder/input models/input.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FormModel } from './models/form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class FormConstructorService {
   ) {
    }
 
-  async callForm(collection: string, formName: string) {
+  async callFormByName(collection: string, formName: string) {
     const collRef = this.fs.collection(collection).ref
     const docRef = collRef.where('nombre', '==', formName)
 
@@ -34,21 +35,31 @@ export class FormConstructorService {
     return { form: formDoc, inputs: inputs }
   }
 
+  async callFormById(collection: string, id: string) {
+    const collRef = this.fs.collection(collection).ref
+    const formRef = collRef.doc(id)
+    const formDoc = await (await collRef.doc(id).get()).data()
+    const inputsArray = await formRef.collection('inputs').get()
+    var inputs = []
+    inputsArray.forEach(async input => { await inputs.push(input.data()) })
+    return { form: formDoc, inputs: inputs }
+  }
 
-  async saveForm(collection, formName, inputs) {
+
+  async saveForm(form: FormModel) {
       
     var collId: string
-    const collRef = this.fs.collection(collection).ref
+    const collRef = this.fs.collection(form.collection).ref
 
     const formCreated = await
-      (await collRef.where('nombre', '==', formName)
+      (await collRef.where('nombre', '==', form.nombre)
         .get()).docs[0];
     
     
     
     if (!formCreated) {
-
-      const newColl = await collRef.add({nombre: formName})
+      form.atributes['nombre'] = form.nombre
+      const newColl = await collRef.add(form.atributes)
       collId = newColl.id
       await collRef.doc(collId).update({ id: collId })
 
@@ -59,7 +70,7 @@ export class FormConstructorService {
     }
 
     
-    inputs.forEach(async input => {
+    form.inputs.forEach(async input => {
       await collRef.doc(collId).collection('inputs').doc(input.ID).set(input)
     })
 

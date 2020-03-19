@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { InputModel } from '../inputs-adder/input models/input.model';
 import { InputAdderService } from '../inputs-adder/input-adder.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormConstructorService } from '../../form-constructor.service';
 import { Location } from '@angular/common';
+import { FormModel } from '../../models/form.model';
 
 
 
@@ -22,8 +23,9 @@ export class NewFormComponent implements OnInit {
   inputToadd: any
   @Input() collection: string
   @Input() formName: string
+  @Input() customAtributes: {}
   @Input() inputTypes: []
-  idForm: string
+  @Input() idForm: string
   newFormName: string
 
   constructor(
@@ -58,15 +60,18 @@ export class NewFormComponent implements OnInit {
     })
   }
 
-  callForm() {
+  async callForm() {
+    var response
+
     if (this.formName) {
-      this._formConst.callForm(this.collection, this.formName)
-        .then(res => {
-          this.Inputs = res.inputs
-          this.inputsInDB = res.inputs.length
-          this.idForm = res.form.id
-        })
+      response = await this._formConst.callFormByName(this.collection, this.formName)
+    } else if (this.idForm) {
+      response = await this._formConst.callFormById(this.collection, this.idForm)
     }
+
+      this.Inputs = response.inputs
+      this.inputsInDB = response.inputs.length
+    this.idForm = response.form.id
   }
 
 
@@ -101,8 +106,17 @@ export class NewFormComponent implements OnInit {
   }
 
   async saveForm() {
-    // if (this.newFormName) this.formName = this.newFormName
-    this._formConst.saveForm(this.collection, this.formName || this.newFormName, this.Inputs)
+    if (this.newFormName) this.formName = this.newFormName
+
+    var form: FormModel = {
+      collection: this.collection,
+      nombre: this.formName,
+      inputs: this.Inputs,
+    }
+
+    if (this.customAtributes) form['atributes'] = this.customAtributes
+      
+    this._formConst.saveForm(form)
     this._formConst.complete.subscribe(end => { if (end) this.location.back() })
   }
 
