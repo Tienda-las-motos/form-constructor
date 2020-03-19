@@ -4,6 +4,7 @@ export class InputModel {
         public ID: string,
         public tipo: string,
         public requerido: boolean,
+        public index?: number,
         public placeholder?: string,
         public info?: string
     ) {

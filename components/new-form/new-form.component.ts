@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormConstructorService } from '../../form-constructor.service';
 import { Location } from '@angular/common';
 import { FormModel } from '../../models/form.model';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 
 
@@ -27,6 +28,7 @@ export class NewFormComponent implements OnInit {
   @Input() inputTypes: []
   @Input() idForm: string
   newFormName: string
+  droped: boolean = false
 
   constructor(
     private _inputAdder: InputAdderService,
@@ -51,6 +53,12 @@ export class NewFormComponent implements OnInit {
 
       if (!input.tipo) input.tipo = 'text';
       var anInput = this.Inputs.find(inpt => inpt.ID === input.ID)
+
+      if (this.Inputs.length == 0) {
+        input['index'] = 1
+      } else {
+        input['index'] = this.Inputs.length + 1
+      }
       
       !anInput ? this.Inputs.push(input) :
         (
@@ -69,14 +77,28 @@ export class NewFormComponent implements OnInit {
       response = await this._formConst.callFormById(this.collection, this.idForm)
     }
 
+    if (response) {
+      
       this.Inputs = response.inputs
       this.inputsInDB = response.inputs.length
-    this.idForm = response.form.id
+      this.idForm = response.form.id
+      this.formName = response.form.nombre
+      
+    }
+
   }
 
 
-  get changes():boolean {
-    return this.Inputs.length === this.inputsInDB ? false : true
+  get changes(): boolean {
+    var anyChange
+    if (this.Inputs.length !== this.inputsInDB) {
+      anyChange = true
+    } else if (this.droped) {
+      anyChange = true
+    } else {
+      false
+    }
+    return anyChange
   }
 
 
@@ -104,6 +126,13 @@ export class NewFormComponent implements OnInit {
 
 
   }
+
+  drop(event:CdkDragDrop<any>) {
+    moveItemInArray(this.Inputs, event.previousIndex, event.currentIndex);
+    this.droped = true
+  }
+
+  
 
   async saveForm() {
     if (this.newFormName) this.formName = this.newFormName

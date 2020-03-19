@@ -5,6 +5,8 @@ import { FormConstructorRoutingModule } from "./form-constructor-routing.module"
 import { FormConstructorComponent } from "./form-constructor.component";
 import { NewFormComponent } from './components/new-form/new-form.component';
 
+import { DragDropModule } from "@angular/cdk/drag-drop";
+
 import { InputAdderComponent } from './components/inputs-adder/input-adder.component';
 import { NumberFormComponent } from "./components/inputs-adder/number-form/number-form.component";
 import { SelectFormComponent } from './components/inputs-adder/select-form/select-form.component';
@@ -46,7 +48,8 @@ import { CallFormComponent } from './components/call-form/call-form.component';
     FormsModule,
     ReactiveFormsModule,
     FormConstructorRoutingModule,
-    InputRenderModule
+    InputRenderModule,
+    DragDropModule
   ],
   exports: [
     NewFormComponent,

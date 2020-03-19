@@ -9,18 +9,18 @@
         <div class="row" id="input-adder">
             <Gdev-input-adder [selectedInputTypes]="inputTypes"></Gdev-input-adder>
         </div>
-        <div class="row" id="input-list">
+        <div class="row" id="input-list" cdkDropList (cdkDropListDropped)="drop($event)">
             <h6>Campos agregados</h6>
-            <div class="input-item" *ngFor="let input of Inputs">
+            <div class="input-item" *ngFor="let input of Inputs" [id]="input.index" cdkDrag>
                 <Gdev-inputs-render [input]="input"></Gdev-inputs-render>
                 <span class="delInput" (click)="delInput(input.ID)">
-                    <i class="fas fa-trash red-text"></i>
-                </span>
+                      <i class="fas fa-trash red-text"></i>
+                    </span>
             </div>
         </div>
         <div class="row" id="save-inputs">
             <div class="col s12 center">
-                <button class="btn waves-effect" [disabled]="Inputs.length == 0 || !changes" (click)="saveForm()">Guardar formulario</button>
+                <button class="btn waves-effect" [disabled]="Inputs.length == 0 || !changes " (click)="saveForm()">Guardar formulario</button>
             </div>
         </div>
     </form>

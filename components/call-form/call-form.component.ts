@@ -35,7 +35,7 @@ export class CallFormComponent implements OnInit {
 
   callForm() {
     if (this.formName) {
-      this._formConst.callForm(this.collection, this.formName)
+      this._formConst.callFormByName(this.collection, this.formName)
         .then(res => { this.Inputs = res.inputs })
     }
   }

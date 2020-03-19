@@ -28,7 +28,7 @@ export class FormConstructorService {
     const formId = await formsDocs.docs[0].id
     const formRef = collRef.doc(formId)
 
-    const inputsArray = await formRef.collection('inputs').get()
+    const inputsArray = await formRef.collection('inputs').orderBy('index').get()
     var inputs = []
     inputsArray.forEach(async input => { await inputs.push(input.data()) })
     
@@ -39,7 +39,7 @@ export class FormConstructorService {
     const collRef = this.fs.collection(collection).ref
     const formRef = collRef.doc(id)
     const formDoc = await (await collRef.doc(id).get()).data()
-    const inputsArray = await formRef.collection('inputs').get()
+    const inputsArray = await formRef.collection('inputs').orderBy('index').get()
     var inputs = []
     inputsArray.forEach(async input => { await inputs.push(input.data()) })
     return { form: formDoc, inputs: inputs }
@@ -70,8 +70,9 @@ export class FormConstructorService {
     }
 
     
-    form.inputs.forEach(async input => {
-      await collRef.doc(collId).collection('inputs').doc(input.ID).set(input)
+    form.inputs.forEach(async (input, inputIndex) => {
+      input.index = inputIndex + 1
+      await collRef.doc(collId).collection('inputs').doc(input.ID).set(input, {merge: true})
     })
 
     this.complete.next(true)
