@@ -2,6 +2,7 @@ import { Component, OnInit, Output, ViewEncapsulation, Input } from '@angular/co
 import { InputModel } from './input models/input.model';
 import { InputAdderService } from './input-adder.service';
 import { InputTypes } from "./input models/inputTypes.model";
+import { FormConstructorService } from '../../form-constructor.service';
 
 @Component({
   selector: 'Gdev-input-adder',
@@ -16,18 +17,17 @@ export class InputAdderComponent implements OnInit {
   inputModel: InputModel
   inputType: string
   inputExtras: INPUTEXTRA[] = []
-  mediaWidth: string
   
   INPUT: any
   
   constructor(
-    public _inputAdder: InputAdderService
+    public _inputAdder: InputAdderService,
+    public _formConstructor: FormConstructorService
   ) {
     this.inputModel = new InputModel('', '', '', false)
    }
 
   ngOnInit() {
-    this.responsiveFields()
     this._inputAdder.loadInputTypes()
       .subscribe(types => {
         this.inputTypes = types
@@ -86,17 +86,7 @@ export class InputAdderComponent implements OnInit {
   }
 
 
-  responsiveFields() {
-    var containerWidth = $("#Gdev-new-form").width()
-
-    if (containerWidth > 1200) {
-      this.mediaWidth = 's4'
-    } else if (containerWidth < 1200 && containerWidth > 900) {
-      this.mediaWidth = 's6'
-    } else if (containerWidth < 900 ) {
-      this.mediaWidth = 's12'
-    }
-  }
+  
 
 }
 

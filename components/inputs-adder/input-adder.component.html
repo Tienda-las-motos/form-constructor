@@ -5,7 +5,7 @@
     <form action="#" onsubmit="return false" #addInput="ngForm">
 
         <div class="row" id="tipo-selecter">
-            <div class="col" [ngClass]="mediaWidth">
+            <div class="col {{_formConstructor.mediaWidth}}">
                 <label for="tipo">Tipo de input</label>
                 <select name="tipo" [(ngModel)]="inputModel.tipo" id="inputTipo">
                     <option value="" disabled selected>Elige un tipo</option>
@@ -14,11 +14,11 @@
                     </option>
                 </select>
             </div>
-            <div class="col input-field" [ngClass]="mediaWidth">
+            <div class="col input-field {{_formConstructor.mediaWidth}}">
                 <input type="text" name="ID" id="ID" placeholder="Ej: primerNombre" [(ngModel)]="inputModel.ID" #ID="ngModel" pattern="[A-Za-z]{1,}" required />
                 <label for="ID" class="active">Identificador</label>
             </div>
-            <div class="col" [ngClass]="mediaWidth">
+            <div class="col {{_formConstructor.mediaWidth}}">
                 <label for="">Requerido</label>
                 <div class="switch">
                     <label>
@@ -32,17 +32,17 @@
         </div>
         <div class="row" id="data-required">
 
-            <div class="col input-field" [ngClass]="mediaWidth">
+            <div class="col input-field {{_formConstructor.mediaWidth}}">
                 <input type="text" name="etiqueta" id="etiqueta" placeholder="Ej: Primer Nombre" value="Input sin nombre" [(ngModel)]="inputModel.etiqueta" #etiqueta="ngModel" required />
                 <label for="etiqueta" class="active">Etiqueta</label>
             </div>
 
-            <div class="col input-field" [ngClass]="mediaWidth">
+            <div class="col input-field {{_formConstructor.mediaWidth}}">
                 <textarea name="info" class="materialize-textarea" id="info" cols="30" rows="10" [(ngModel)]="inputModel.info" placeholder=" (Opcional) Descripción del input "></textarea>
                 <label for="info" class="active">Descripción o información</label>
             </div>
 
-            <div class="col input-field" [ngClass]="mediaWidth" *ngIf="inputModel.tipo == 'text' || 
+            <div class="col input-field {{_formConstructor.mediaWidth}}" *ngIf="inputModel.tipo == 'text' || 
             inputModel.tipo == 'number' || 
             inputModel.tipo == 'select' || 
             inputModel.tipo == 'textarea' || 
@@ -88,19 +88,19 @@
         </div>
 
         <div class="row" id="bottom-bar">
-            <div class="col" [ngClass]="mediaWidth">
+            <div class="col {{_formConstructor.mediaWidth}}">
 
                 <div class="col s4">
 
                 </div>
             </div>
-            <div class="col" [ngClass]="mediaWidth">
+            <div class="col {{_formConstructor.mediaWidth}}">
                 <button class="btn" (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
                 Agregar
             </button>
             </div>
         </div>
 
-        <div class="col" [ngClass]="mediaWidth"></div>
+        <div class="col {{_formConstructor.mediaWidth}}"></div>
     </form>
 </div>

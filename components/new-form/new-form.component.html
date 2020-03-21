@@ -1,27 +1,53 @@
 <div class="container" id="Gdev-new-form">
     <form onsubmit="return false" action="#" #addForm="ngForm">
+
+
         <div class="row" id="form-name" *ngIf="!formName || formName == ''">
             <div class="col s12 input-field">
                 <input type="text" name="formName" id="formName" [(ngModel)]="newFormName">
                 <label for="formName">Nombre del formulario</label>
             </div>
         </div>
-        <div class="row" id="input-adder">
-            <Gdev-input-adder [selectedInputTypes]="inputTypes"></Gdev-input-adder>
-        </div>
-        <div class="row" id="input-list" cdkDropList (cdkDropListDropped)="drop($event)">
-            <h6>Campos agregados</h6>
-            <div class="input-item" *ngFor="let input of Inputs" [id]="input.index" cdkDrag>
-                <Gdev-inputs-render [input]="input"></Gdev-inputs-render>
-                <span class="delInput" (click)="delInput(input.ID)">
-                      <i class="fas fa-trash red-text"></i>
-                    </span>
+
+
+        <div class="row">
+            <div class="col {{_formConst.mediaWidth}}" id="input-adder">
+                <Gdev-input-adder [selectedInputTypes]="inputTypes"></Gdev-input-adder>
             </div>
+
+
+            <div class="col {{_formConst.mediaWidth}}" id="input-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                <h6>Campos agregados</h6>
+
+                <div class="input-item" *ngFor="let input of Inputs" cdkDrag (mousedown)="grabEffect()">
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <div class="grabber">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                            {{input.etiqueta}}
+                            <span class="delInput" (click)="delInput(input.ID)">
+                                <i class="fas fa-trash red-text"></i>
+                            </span>
+                        </mat-expansion-panel-header>
+                        <Gdev-inputs-render [input]="input"></Gdev-inputs-render>
+                    </mat-expansion-panel>
+                </div>
+
+            </div>
+
+
         </div>
+
+
+
         <div class="row" id="save-inputs">
             <div class="col s12 center">
                 <button class="btn waves-effect" [disabled]="Inputs.length == 0 || !changes " (click)="saveForm()">Guardar formulario</button>
             </div>
         </div>
+
+
     </form>
 </div>

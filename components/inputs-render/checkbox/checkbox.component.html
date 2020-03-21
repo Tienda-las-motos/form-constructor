@@ -5,7 +5,8 @@
             value:$event.target.value
         })" />
         <label [for]="input.ID">
-            {{input.etiqueta}}
+            {{input.etiqueta}} <span class="red-text"
+                  *ngIf="input.requerido">*</span>
         </label>
     </p>
     <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>

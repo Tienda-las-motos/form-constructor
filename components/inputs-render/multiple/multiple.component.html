@@ -1,6 +1,7 @@
 <div class="col s12 multiple">
     <div class="label-cont">
-        <label [for]="input.ID"> {{input.etiqueta}} </label>
+        <label [for]="input.ID"> {{input.etiqueta}} <span class="red-text"
+                *ngIf="input.requerido">*</span> </label>
         <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
     </div>
     <p *ngFor="let opcion of input.opciones">

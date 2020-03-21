@@ -5,28 +5,50 @@
 }
 
 .container {
-    width: 90% !important;
+    width: 100% !important;
 }
 
 .input-item {
     display: flex;
     margin: 2em 0;
-    border-bottom: solid 1px #ccc;
-    padding-bottom: 2em;
-    cursor: grab;
-    .delInput {
-        cursor: pointer;
-        margin-left: 30px;
+    cursor: grab !important;
+    .mat-expansion-panel {
+        width: 100%;
+        cursor: grab;
+        background: #f8f8f2;
+        color: #202020;
+    }
+    .mat-expansion-panel-header {
+        position: relative;
+        .delInput {
+            cursor: pointer;
+            position: absolute;
+            right: 3em;
+        }
+    }
+    .grabber {
+        display: inline-flex;
+        width: 20px;
+        background: #ccc;
+        align-items: center;
+        justify-content: center;
+        cursor: grab !important;
     }
     Gdev-inputs-render {
         width: 95%;
     }
 }
 
+.grabbed {
+    cursor: grabbing !important;
+}
+
 .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    border: none;
+    padding-bottom: none;
 }
 
 .cdk-drag-placeholder {

@@ -1,6 +1,10 @@
 <div class="file-field input-field">
     <div class="btn">
-        <span>{{input.etiqueta}}</span>
+        <span>
+            {{input.etiqueta}} 
+            <span class="red-text"
+                  *ngIf="input.requerido">*</span>
+        </span>
         <input type="file">
     </div>
     <div class="file-path-wrapper">

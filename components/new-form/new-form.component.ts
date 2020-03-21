@@ -32,7 +32,7 @@ export class NewFormComponent implements OnInit {
 
   constructor(
     private _inputAdder: InputAdderService,
-    private _formConst: FormConstructorService,
+    public  _formConst: FormConstructorService,
     private fs: AngularFirestore,
     private location: Location
   ) {
@@ -130,6 +130,11 @@ export class NewFormComponent implements OnInit {
   drop(event:CdkDragDrop<any>) {
     moveItemInArray(this.Inputs, event.previousIndex, event.currentIndex);
     this.droped = true
+    $('.grabber').removeClass('grabbed')
+  }
+
+  grabEffect() {
+    $('.grabber').addClass('grabbed')
   }
 
   

@@ -25,9 +25,9 @@ export class TextInputComponent implements OnInit {
 
   setValue() {
     if (typeof this.value === 'object') {
-      return this.value ? this.value[this.input.ID] : false
+      return this.value ? this.value[this.input.ID] : ''
     } else {
-      return this.value ? this.value : false
+      return this.value ? this.value : ''
     }
   }
   

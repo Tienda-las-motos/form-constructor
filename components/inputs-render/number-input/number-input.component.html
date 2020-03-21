@@ -4,5 +4,8 @@
             value:$event.target.value
         })" />
     <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
-    <label [for]="input.ID" [ngClass]="{ active: input.placeholder || value }">{{ input.etiqueta }}</label>
+    <label [for]="input.ID" [ngClass]="{ active: input.placeholder || value }">
+        {{ input.etiqueta }} <span class="red-text"
+              *ngIf="input.requerido">*</span>
+    </label>
 </div>

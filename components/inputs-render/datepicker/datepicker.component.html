@@ -2,6 +2,8 @@
 
 <div class="col s12 input-field">
     <input type="text" (change)="getDate()" class="datepicker" [name]="input.ID" [value]="setValue()" [id]="input.ID" [placeholder]="input.placeholder">
-    <label [ngClass]="{'active': input.placeholder}" [for]="input.ID">{{input.etiqueta}}</label>
+    <label [ngClass]="{'active': input.placeholder}" [for]="input.ID">
+        {{input.etiqueta}} 
+    </label>
     <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
 </div>

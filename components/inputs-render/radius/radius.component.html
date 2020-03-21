@@ -1,12 +1,15 @@
 <div class="col s12">
     <div class="label-cont">
-        <label [for]="input.ID"> {{input.etiqueta}} </label>
+        <label [for]="input.ID"> {{input.etiqueta}} <span class="red-text"
+                *ngIf="input.requerido">*</span> </label>
         <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
     </div>
-    <p *ngFor="let opcion of input.opciones">
-        <input class="with-gap" [name]="input.ID" [value]="setValue()" type="radio" [id]="opcion.index" (click)="getValue.emit({
+    <p *ngFor="let opcion of input.opciones; index as i">
+        <input class="with-gap" [name]="input.ID" [value]="setValue()" type="radio" (click)="getValue.emit({
             key:this.input.ID, 
             value:opcion.value})" />
-        <label [for]="opcion.index">{{opcion.value}}</label>
+        <label [for]="i">
+            {{opcion.value}} 
+        </label>
     </p>
 </div>

@@ -11,6 +11,7 @@ import { FormModel } from './models/form.model';
 export class FormConstructorService {
 
   complete = new Subject<any>()
+  // mediaWidth: string
 
   
 
@@ -60,12 +61,14 @@ export class FormConstructorService {
     if (!formCreated) {
       form.atributes['nombre'] = form.nombre
       const newColl = await collRef.add(form.atributes)
+
       collId = newColl.id
       await collRef.doc(collId).update({ id: collId })
 
     } else {
 
       collId = formCreated.id
+      await collRef.doc(collId).update(form.atributes)
 
     }
 
@@ -77,6 +80,21 @@ export class FormConstructorService {
 
     this.complete.next(true)
 
+  }
+
+
+
+
+  get mediaWidth(): string {
+    var containerWidth = $("#Gdev-new-form").width()
+
+    if (containerWidth > 1200) {
+      return's4'
+    } else if (containerWidth < 1200 && containerWidth > 900) {
+      return's6'
+    } else if (containerWidth < 900 ) {
+      return's12'
+    }
   }
   
 }
