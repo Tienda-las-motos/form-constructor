@@ -27,8 +27,10 @@ export class NewFormComponent implements OnInit {
   @Input() customAtributes: {}
   @Input() inputTypes: []
   @Input() idForm: string
+  @Input() autoDisableButton: boolean = true  
   newFormName: string
   droped: boolean = false
+  
 
   constructor(
     private _inputAdder: InputAdderService,
@@ -38,7 +40,6 @@ export class NewFormComponent implements OnInit {
   ) {
     this.Inputs = []
     if (!this.collection) this.collection = 'formularios'
-    
   }
   
   async ngOnInit() {
@@ -92,13 +93,15 @@ export class NewFormComponent implements OnInit {
   get changes(): boolean {
     var anyChange
     if (this.Inputs.length !== this.inputsInDB) {
-      anyChange = true
+      return true
     } else if (this.droped) {
-      anyChange = true
+      return true
+    } else if (this.Inputs.length == 0) {
+      return false
     } else {
-      false
+      return false
     }
-    return anyChange
+    // return anyChange
   }
 
 
@@ -151,7 +154,6 @@ export class NewFormComponent implements OnInit {
     if (this.customAtributes) form['atributes'] = this.customAtributes
       
     this._formConst.saveForm(form)
-    this._formConst.complete.subscribe(end => { if (end) this.location.back() })
   }
 
 }

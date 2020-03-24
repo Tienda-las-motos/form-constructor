@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MaterialModule } from "./material.module";
 
 import { TextInputComponent } from './text-input/text-input.component';
 import { NumberInputComponent } from './number-input/number-input.component';
@@ -39,7 +40,8 @@ import { InfoBoxComponent } from './info-box/info-box.component';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   exports: [
     TextInputComponent,

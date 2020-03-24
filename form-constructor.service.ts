@@ -65,14 +65,14 @@ export class FormConstructorService {
       collId = newColl.id
       await collRef.doc(collId).update({ id: collId })
 
-    } else {
+    } else if(form.atributes) {
 
-      collId = formCreated.id
-      await collRef.doc(collId).update(form.atributes)
-
+      await collRef.doc(formCreated.id).update(form.atributes)
+      
     }
-
     
+    
+    collId = formCreated.id
     form.inputs.forEach(async (input, inputIndex) => {
       input.index = inputIndex + 1
       await collRef.doc(collId).collection('inputs').doc(input.ID).set(input, {merge: true})

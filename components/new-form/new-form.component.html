@@ -44,7 +44,7 @@
 
         <div class="row" id="save-inputs">
             <div class="col s12 center">
-                <button class="btn waves-effect" [disabled]="Inputs.length == 0 || !changes " (click)="saveForm()">Guardar formulario</button>
+                <button class="btn waves-effect" [disabled]="autoDisableButton && !changes " (click)="saveForm()">Guardar formulario</button>
             </div>
         </div>
 

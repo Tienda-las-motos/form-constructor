@@ -16,11 +16,12 @@ export class RangeComponent implements OnInit {
   @Output() getValue: EventEmitter<any> = new EventEmitter()
 
   constructor() {
-    this.input = new RangeModel('','',false,0,100)
+    this.input = new RangeModel('','',false,0,0,100,0)
    }
 
   async ngOnInit() {
-    await this.waitFor(1000)
+    await this.waitFor(500)
+    await this.setValue()
     this.sliderInit()
     this.getValues()
   }
@@ -28,9 +29,12 @@ export class RangeComponent implements OnInit {
 
   sliderInit() {
     var slider = document.getElementById(`${this.input.ID}-slider`)
+    if (this.input.minValue == 0) this.input.minValue = this.input.minCant
+    if (this.input.maxValue == 0) this.input.maxValue = this.input.maxCant
+
 
     noUiSlider.create(slider, {
-      start: [this.input.minCant, this.input.maxCant],
+      start: [this.input.minValue, this.input.maxValue],
       connect: true,
       range: {
           'min': +this.input.minCant,
@@ -50,20 +54,36 @@ export class RangeComponent implements OnInit {
   }
 
   setValue() {
-    if (typeof this.value === 'object') {
-      return this.value ? this.value[this.input.ID] : false
-    } else {
-      return this.value ? this.value : false
-    }
+      if (typeof this.value === 'object') {
+      
+        return this.value[this.input.ID] ? (
+          this.input.minValue = this.value[this.input.ID].min,
+          this.input.maxValue = this.value[this.input.ID].max
+        ) : (
+            this.input.minValue = 0,
+            this.input.maxValue = 0
+        )
+          
+
+      } else {
+        
+        return this.value ? this.value : false
+
+      }
   }
 
   getValues() {
     var slider: noUiSlider.Instance = document.getElementById(`${this.input.ID}-slider`) as noUiSlider.Instance
 
     slider.noUiSlider.on('change', (values) => {
+      
       this.getValue.emit({
-        key: this.input.ID,
-        value: values
+        key: 'min'+this.input.ID,
+        value: +values[0]
+      })
+      this.getValue.emit({
+        key: 'max'+this.input.ID,
+        value: +values[1]
       })
     })
   }
