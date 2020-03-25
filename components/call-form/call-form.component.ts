@@ -28,7 +28,7 @@ export class CallFormComponent implements OnInit {
   ngOnInit() {
     this.callForm()
     this._render.getValue.subscribe(res => {
-      console.log(res)
+      // console.log(res)
       this.formValues.emit(res)
     })
   }

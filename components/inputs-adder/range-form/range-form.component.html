@@ -15,3 +15,8 @@
     <input type="text" name="maxText" id="maxText" (blur)="_adder.getAttr('maxText', $event.target.value)">
     <label for="maxText">Etiqueta max</label>
 </div>
+
+<div class="col s6 input-field">
+    <input type="number" name="steps" id="steps" (blur)="_adder.getAttr('steps', +$event.target.value)" placeholder="Cantidad a saltar al mover el slider">
+    <label for="steps" class="active">Saltos</label>
+</div>

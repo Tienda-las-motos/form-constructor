@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SwitchModel } from './switch-input.model';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'Gdev-switch',
@@ -16,6 +17,10 @@ export class SwitchComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  onSwitch(event) {
+    this.getValue.emit({key:event.source.id, value: event.checked})
   }
 
   setValue() {

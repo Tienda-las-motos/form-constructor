@@ -1,22 +1,5 @@
 <div class="col s12">
-    <div class="label-cont">
-        <label [for]="input.ID">
-        {{input.etiqueta}} <span class="red-text"
-              *ngIf="input.requerido">*</span>
-    </label>
-        <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
-    </div>
-    <div class="switch" [id]="input.ID">
-        <label>
-          {{input.trueText}}
-          <input type="checkbox"
-                 [value]="setValue()"
-                 (change)="getValue.emit({
-                 key:input.ID,
-                 value:$event.target.value
-                 })">
-          <span class="lever"></span>
-          {{input.falseText}}
-      </label>
-    </div>
+    <mat-slide-toggle [color]="'primary'" [id]="input.ID" (change)="onSwitch($event)">
+        {{input.etiqueta}} <span class="red-text" *ngIf="input.requerido">*</span>
+    </mat-slide-toggle>
 </div>

@@ -17,6 +17,7 @@ export class InputsRenderComponent implements OnInit {
   }
 
   catchValue(res) {
+    // console.log(res)
     this._render.storeValue(res.key, res.value)
   }
 

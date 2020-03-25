@@ -13,10 +13,11 @@ export class RangeComponent implements OnInit {
   waitFor = (ms) => new Promise(r => setTimeout(r, ms))
   @Input() input: RangeModel
   @Input() value
+  @Input() steps
   @Output() getValue: EventEmitter<any> = new EventEmitter()
 
   constructor() {
-    this.input = new RangeModel('','',false,0,0,100,0)
+    this.input = new RangeModel('', '', false, 0, 0, 100, 0, true)
    }
 
   async ngOnInit() {
@@ -32,6 +33,10 @@ export class RangeComponent implements OnInit {
     if (this.input.minValue == 0) this.input.minValue = this.input.minCant
     if (this.input.maxValue == 0) this.input.maxValue = this.input.maxCant
 
+    
+    
+
+
 
     noUiSlider.create(slider, {
       start: [this.input.minValue, this.input.maxValue],
@@ -41,16 +46,21 @@ export class RangeComponent implements OnInit {
           'max': +this.input.maxCant
       },
       pips: {
-        mode: 'steps',
-        stepped: true,
-        density: 4
+        mode: 'range',
+        density: 3
       },
       tooltips: true,
-      format: wNumb({
-        decimals: 0
-      }),
+      step: this.input.steps,
+      format: wNumb({ decimals: 0 }),
       behaviour: "tap-drag"
     })
+
+    if (this.steps) {
+      noUiSlider.updateOptions(
+      	{step: this.steps,}, // Object
+      );
+    }
+
   }
 
   setValue() {
@@ -67,7 +77,13 @@ export class RangeComponent implements OnInit {
 
       } else {
         
-        return this.value ? this.value : false
+        return this.value ? (
+          this.input.minValue = this.value[this.input.ID].min,
+          this.input.maxValue = this.value[this.input.ID].max
+        ) : (
+            this.input.minValue = 0,
+            this.input.maxValue = 0
+        )
 
       }
   }

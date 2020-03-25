@@ -11,6 +11,7 @@ export class InputRenderServices {
     }
 
     storeValue(key, value): Observable<any>{
+        // console.log({key, value})
         this.values[key] = value
         this.getValue.next(this.values)
         return 
