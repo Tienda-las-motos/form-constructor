@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MaterialModule } from "./material.module";
 
 import { TextInputComponent } from './text-input/text-input.component';
 import { NumberInputComponent } from './number-input/number-input.component';
@@ -17,6 +16,7 @@ import { FileComponent } from './file/file.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { MultipleComponent } from './multiple/multiple.component';
 import { InfoBoxComponent } from './info-box/info-box.component';
+import { MaterialModule } from 'src/app/material.module';
 
 
 

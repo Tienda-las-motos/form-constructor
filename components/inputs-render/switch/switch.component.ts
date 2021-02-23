@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SwitchModel } from './switch-input.model';
-import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'Gdev-switch',

@@ -11,7 +11,7 @@ export class NumberInputComponent implements OnInit {
   @Input() input: NumberInputModel
 
   @Input() value
-  @Output() getValue: EventEmitter<number> = new EventEmitter()
+  @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new NumberInputModel('','',false)
    }
