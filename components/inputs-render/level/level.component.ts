@@ -9,7 +9,7 @@ import { LevelModel } from "./level-input.model";
 export class LevelComponent implements OnInit {
 
   @Input() input: LevelModel
-  @Input() value
+  @Input() value: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new LevelModel('','',false, 0,100)
@@ -24,6 +24,13 @@ export class LevelComponent implements OnInit {
     } else {
       return this.value ? this.value : false
     }
+  }
+
+  emitValue(input: any, event: any) {
+    this.getValue.emit({
+      key: input.ID,
+      value: +event.target.value || 0
+    })
   }
 
 }

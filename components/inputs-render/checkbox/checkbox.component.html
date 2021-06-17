@@ -1,13 +1,10 @@
 <div class="col s12 checkbox-field">
     <p>
-        <input type="checkbox" class="filled-in" [id]="input.ID" [value]="setValue()" (click)="getValue.emit({
-            key:input.ID, 
-            value:$event.target.value
-        })" />
+        <input type="checkbox" class="filled-in" [id]="input.ID" [value]="setValue()" (click)="emitValue(input, $event)" />
         <label [for]="input.ID">
             {{input.etiqueta}} <span class="red-text"
                   *ngIf="input.requerido">*</span>
         </label>
     </p>
-    <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
 </div>

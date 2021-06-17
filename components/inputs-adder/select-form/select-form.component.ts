@@ -8,7 +8,7 @@ import { InputAdderService } from '../input-adder.service';
 })
 export class SelectFormComponent implements OnInit {
 
-  nuevaOpcion: string
+  nuevaOpcion: string = ''
   constructor(
     public _adder: InputAdderService
   ) { }
@@ -16,7 +16,7 @@ export class SelectFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+  waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
 
 }
 

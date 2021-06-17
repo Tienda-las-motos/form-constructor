@@ -9,7 +9,7 @@ import { RadiusModel } from './radius-input.model';
 export class RadiusComponent implements OnInit {
 
   @Input() input: RadiusModel
-  @Input() value
+  @Input() value: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new RadiusModel('','',false, [])

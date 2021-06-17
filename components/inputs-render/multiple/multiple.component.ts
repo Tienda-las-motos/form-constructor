@@ -10,7 +10,7 @@ export class MultipleComponent implements OnInit {
 
   @Input() input: MultipleModel
   opciones: string[] = []
-  @Input() value
+  @Input() value: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
 
   constructor() {
@@ -20,8 +20,8 @@ export class MultipleComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleOpcion(opcion, selected) {
-    if (selected) {
+  toggleOpcion(opcion: any, selected: any) {
+    if (selected.target.checked) {
       this.opciones.push(opcion)
     } else {
 
@@ -32,10 +32,10 @@ export class MultipleComponent implements OnInit {
     }
 
     this.getValue.emit({
-            key:this.input.ID, 
+            key:this.input.ID,
             value:this.opciones
         })
-      
+
   }
 
   setValue() {

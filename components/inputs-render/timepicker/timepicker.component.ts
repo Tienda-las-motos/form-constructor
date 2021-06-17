@@ -10,8 +10,8 @@ declare var $:any;
 export class TimepickerComponent implements OnInit {
 
   @Input() input: TimepickerModel
-  datetime: DateTime
-  @Input() value
+  datetime!: DateTime
+  @Input() value: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
 
   constructor() {
@@ -36,7 +36,7 @@ export class TimepickerComponent implements OnInit {
       key: this.input.ID,
       value: today
     })
-  
+
   }
 
   initTimePicker() {
@@ -51,11 +51,11 @@ export class TimepickerComponent implements OnInit {
       autoclose: false, // automatic close timepicker
       aftershow: function () {
         }, //Function for after opening timepicker
-      
+
     });
 
-    
-    $('.timepicker').on('mousedown',function(event){
+
+    $('.timepicker').on('mousedown',function(event: any){
       event.preventDefault();
     })
   }

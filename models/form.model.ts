@@ -3,7 +3,7 @@ export class FormModel {
         public nombre: string,
         public collection: string,
         public inputs: any,
-        public atributes?: {},
+        public atributes?: any,
         public id?: string,
     ){}
 }

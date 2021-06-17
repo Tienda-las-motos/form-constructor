@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DatepickerModel, DateTime } from './datepicker.model';
-declare var $: any; 
-declare var jQuery:any; 
+declare var $: any;
+declare var jQuery:any;
 
 @Component({
   selector: 'Gdev-datepicker',
@@ -11,9 +11,9 @@ declare var jQuery:any;
 export class DatepickerComponent implements OnInit {
 
   @Input() input: DatepickerModel
-  datetime: DateTime
-  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
-  @Input() value
+  datetime!: DateTime
+  waitFor = (ms:number) => new Promise(r => setTimeout(r, ms))
+  @Input() value:any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new DatepickerModel('', '')
@@ -39,12 +39,12 @@ export class DatepickerComponent implements OnInit {
       year = splitDate[0],
       month = splitDate[1] - 1,
       day = splitDate[2];
-      
+
       this.datetime.year = +year
       this.datetime.month = +month
       this.datetime.day = +day
     this.getValue.emit({
-            key: this.input.ID, 
+            key: this.input.ID,
             value:new Date(+year, +month, +day)
           })
   }
@@ -68,7 +68,7 @@ export class DatepickerComponent implements OnInit {
     })
 
     $('.datepicker').on('mousedown',
-      function (event) {
+      function (event: any) {
       event.preventDefault();
     })
   }

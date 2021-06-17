@@ -8,13 +8,13 @@ import { InputRenderServices } from '../inputs-render/input-render.service';
   templateUrl: './call-form.component.html',
   styleUrls: ['./call-form.component.css']
 })
-export class CallFormComponent implements OnInit {
+export class  CallFormComponent implements OnInit {
 
   public waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
   public Inputs: InputModel[]
   @Input() value: any
-  @Input() formName: string
-  @Input() collection: string
+  @Input() formName: string = ''
+  @Input() collection: string = 'formularios'
   @Output() formValues: EventEmitter<{}> = new EventEmitter()
 
   constructor(
@@ -22,7 +22,6 @@ export class CallFormComponent implements OnInit {
     private _render: InputRenderServices
   ) {
     this.Inputs = []
-    if (!this.collection) this.collection = 'formularios'
    }
 
   ngOnInit() {

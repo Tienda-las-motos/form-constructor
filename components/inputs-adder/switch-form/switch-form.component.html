@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col s3">
-        <input type="text" name="trueText" id="trueText" (blur)="_adder.getAttr('trueText', $event.target.value)" placeholder="Texto en off">
+        <input type="text" name="trueText" id="trueText" (blur)="_adder.getAttr('trueText', $event)" placeholder="Texto en off">
     </div>
     <div class="col s1">
         <div class="switch">
@@ -11,6 +11,6 @@
         </div>
     </div>
     <div class="col s3">
-        <input type="text" name="falseText" id="falseText" (blur)="_adder.getAttr('falseText', $event.target.value)" placeholder="Texto en on">
+        <input type="text" name="falseText" id="falseText" (blur)="_adder.getAttr('falseText', $event)" placeholder="Texto en on">
     </div>
 </div>

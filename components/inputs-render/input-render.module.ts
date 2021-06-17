@@ -16,7 +16,7 @@ import { FileComponent } from './file/file.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { MultipleComponent } from './multiple/multiple.component';
 import { InfoBoxComponent } from './info-box/info-box.component';
-import { MaterialModule } from 'src/app/material.module';
+import { MaterialModule } from 'shared/material.module';
 
 
 

@@ -8,7 +8,7 @@ import { TextInputModel, Colores } from './text-input.model';
 })
 export class TextInputComponent implements OnInit {
 
-  waitFor = (ms)=> new Promise(r => setTimeout(r, ms))
+  waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
 
   @Input() input: TextInputModel
   @Input() colores?: Colores
@@ -18,7 +18,7 @@ export class TextInputComponent implements OnInit {
   constructor() {
     this.input = new TextInputModel('','', false)
   }
-  
+
   async ngOnInit() {
     await this.waitFor(2000)
   }
@@ -30,7 +30,13 @@ export class TextInputComponent implements OnInit {
       return this.value ? this.value : ''
     }
   }
-  
 
-  
+  emitValue(input: any, event: any) {
+    this.getValue.emit({
+      key:input.ID,
+      value:event.target.value
+  })
+  }
+
+
 }

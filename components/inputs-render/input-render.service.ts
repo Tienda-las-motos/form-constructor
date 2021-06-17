@@ -5,15 +5,15 @@ import { Observable, Subject } from 'rxjs';
 export class InputRenderServices {
 
     getValue = new Subject<{}>()
-    values: {}
+    values: any
     constructor() {
         this.values = {}
     }
 
-    storeValue(key, value): Observable<any>{
+    storeValue(key:any, value:any) {
         // console.log({key, value})
         this.values[key] = value
         this.getValue.next(this.values)
-        return 
+        return
     }
 }

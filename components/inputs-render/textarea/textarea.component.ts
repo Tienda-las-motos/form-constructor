@@ -14,17 +14,24 @@ export class TextareaComponent implements OnInit {
    }
 
   ngOnInit() {
-    $('#textarea1').trigger('autoresize');
+    // $('#textarea1').trigger('autoresize');
   }
 
-  @Input() value
+  @Input() value:any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
-  
+
   setValue() {
     if (typeof this.value === 'object') {
       return this.value ? this.value[this.input.ID] : false
     } else {
       return this.value ? this.value : false
     }
+  }
+
+  emitValue(input: any, event: any) {
+    this.getValue.emit({
+      key:input.ID,
+      value:event.target.value
+  })
   }
 }

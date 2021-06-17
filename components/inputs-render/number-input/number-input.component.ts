@@ -10,7 +10,7 @@ export class NumberInputComponent implements OnInit {
 
   @Input() input: NumberInputModel
 
-  @Input() value
+  @Input() value: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new NumberInputModel('','',false)
@@ -26,6 +26,13 @@ export class NumberInputComponent implements OnInit {
       return this.value ? this.value : false
     }
   }
-  
+
+  emitValue(input: any, event: any) {
+    this.getValue.emit({
+      key:input.ID,
+      value:event.target.value
+  })
+  }
+
 
 }

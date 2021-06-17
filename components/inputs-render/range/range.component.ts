@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RangeModel } from './range-input.model';
-import * as noUiSlider from "noUiSlider";
-import * as wNumb from 'wnumb'
+import * as noUiSlider from "nouislider";
+import wNumb from 'wnumb'
 
 @Component({
   selector: 'Gdev-range',
@@ -10,10 +10,10 @@ import * as wNumb from 'wnumb'
 })
 export class RangeComponent implements OnInit {
 
-  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+  waitFor = (ms: any) => new Promise(r => setTimeout(r, ms))
   @Input() input: RangeModel
-  @Input() value
-  @Input() steps
+  @Input() value: any
+  @Input() steps: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
 
   constructor() {
@@ -29,15 +29,15 @@ export class RangeComponent implements OnInit {
 
 
   sliderInit() {
-    var slider = document.getElementById(`${this.input.ID}-slider`)
+    var slider = document.getElementById(`${this.input.ID}-slider`) as noUiSlider.target
     if (this.input.minValue == 0) this.input.minValue = this.input.minCant
     if (this.input.maxValue == 0) this.input.maxValue = this.input.maxCant
 
-    
-    
 
 
 
+
+    let range: noUiSlider.PipsMode.Range = "range" as noUiSlider.PipsMode.Range;
     noUiSlider.create(slider, {
       start: [this.input.minValue, this.input.maxValue],
       connect: true,
@@ -46,7 +46,7 @@ export class RangeComponent implements OnInit {
           'max': +this.input.maxCant
       },
       pips: {
-        mode: 'range',
+        mode: range,
         density: 3
       },
       tooltips: true,
@@ -56,16 +56,16 @@ export class RangeComponent implements OnInit {
     })
 
     if (this.steps) {
-      noUiSlider.updateOptions(
-      	{step: this.steps,}, // Object
-      );
+      // noUiSlider.updateOptions(
+      // 	{step: this.steps,}, // Object
+      // );
     }
 
   }
 
   setValue() {
       if (typeof this.value === 'object') {
-      
+
         return this.value[this.input.ID] ? (
           this.input.minValue = this.value[this.input.ID].min,
           this.input.maxValue = this.value[this.input.ID].max
@@ -73,10 +73,10 @@ export class RangeComponent implements OnInit {
             this.input.minValue = 0,
             this.input.maxValue = 0
         )
-          
+
 
       } else {
-        
+
         return this.value ? (
           this.input.minValue = this.value[this.input.ID].min,
           this.input.maxValue = this.value[this.input.ID].max
@@ -89,10 +89,10 @@ export class RangeComponent implements OnInit {
   }
 
   getValues() {
-    var slider: noUiSlider.Instance = document.getElementById(`${this.input.ID}-slider`) as noUiSlider.Instance
+    var slider: noUiSlider.target = document.getElementById(`${this.input.ID}-slider`) as noUiSlider.target
 
-    slider.noUiSlider.on('change', (values) => {
-      
+    slider.noUiSlider?.on('change', (values: any) => {
+
       this.getValue.emit({
         key: 'min'+this.input.ID,
         value: +values[0]

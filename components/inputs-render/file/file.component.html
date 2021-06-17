@@ -1,7 +1,7 @@
 <div class="file-field input-field">
     <div class="btn">
         <span>
-            {{input.etiqueta}} 
+            {{input.etiqueta}}
             <span class="red-text"
                   *ngIf="input.requerido">*</span>
         </span>
@@ -10,5 +10,5 @@
     <div class="file-path-wrapper">
         <input class="file-path validate" type="text" [placeholder]="input.placeholder">
     </div>
-    <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
 </div>

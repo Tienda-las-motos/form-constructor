@@ -9,7 +9,7 @@ import { FileInputModel } from './file-input.model';
 export class FileComponent implements OnInit {
 
   @Input() input: FileInputModel
-  @Input() value
+  @Input() value:any
   constructor() {
     this.input = new FileInputModel('','',false, '')
    }

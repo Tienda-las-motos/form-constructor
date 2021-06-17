@@ -19,18 +19,18 @@ export class NewFormComponent implements OnInit {
 
   public waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
   public Inputs: InputModel[]
-  public inputsInDB
+  public inputsInDB: any
 
   inputToadd: any
-  @Input() collection: string
-  @Input() formName: string
-  @Input() customAtributes: {}
-  @Input() inputTypes: []
-  @Input() idForm: string
-  @Input() autoDisableButton: boolean = true  
-  newFormName: string
+  @Input() collection: string = 'formularios'
+  @Input() formName: string = ''
+  @Input() customAtributes: any
+  @Input() inputTypes: [] = []
+  @Input() idForm: string = ''
+  @Input() autoDisableButton: boolean = true
+  newFormName: string = ''
   droped: boolean = false
-  
+
 
   constructor(
     private _inputAdder: InputAdderService,
@@ -39,15 +39,14 @@ export class NewFormComponent implements OnInit {
     private location: Location
   ) {
     this.Inputs = []
-    if (!this.collection) this.collection = 'formularios'
   }
-  
+
   async ngOnInit() {
     this.callForm()
     this.catchInputs()
   }
 
-  
+
 
   async catchInputs() {
     this._inputAdder.catchNewInput.subscribe(input => {
@@ -60,7 +59,7 @@ export class NewFormComponent implements OnInit {
       } else {
         input['index'] = this.Inputs.length + 1
       }
-      
+
       !anInput ? this.Inputs.push(input) :
         (
           console.warn(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`),
@@ -70,7 +69,7 @@ export class NewFormComponent implements OnInit {
   }
 
   async callForm() {
-    var response
+    var response: any
 
     if (this.formName) {
       response = await this._formConst.callFormByName(this.collection, this.formName)
@@ -79,12 +78,12 @@ export class NewFormComponent implements OnInit {
     }
 
     if (response) {
-      
+
       this.Inputs = response.inputs
       this.inputsInDB = response.inputs.length
       this.idForm = response.form.id
       this.formName = response.form.nombre
-      
+
     }
 
   }
@@ -105,8 +104,8 @@ export class NewFormComponent implements OnInit {
   }
 
 
-  async delInput(idInput) {
-    
+  async delInput(idInput: string) {
+
     // Delete in local Array
     var inputAtDel = this.Inputs.findIndex(inpt => inpt.ID === idInput)
     this.Inputs.splice(inputAtDel, 1)
@@ -114,16 +113,16 @@ export class NewFormComponent implements OnInit {
 
     // Search and delete in firestore
     if (this.idForm) {
-      
+
       const collRef = this.fs.collection(this.collection).ref
       const formRef = collRef.doc(this.idForm)
       const inputsForm = await formRef.collection('inputs')
                               .where('ID', '==', idInput).get()
-                              
+
       if (inputsForm.size > 0) {
         var inputToDel = inputsForm.docs[0].id
         formRef.collection('inputs').doc(inputToDel).delete()
-      } 
+      }
 
     }
 
@@ -133,14 +132,14 @@ export class NewFormComponent implements OnInit {
   drop(event:CdkDragDrop<any>) {
     moveItemInArray(this.Inputs, event.previousIndex, event.currentIndex);
     this.droped = true
-    $('.grabber').removeClass('grabbed')
+    // $('.grabber').removeClass('grabbed')
   }
 
   grabEffect() {
-    $('.grabber').addClass('grabbed')
+    // $('.grabber').addClass('grabbed')
   }
 
-  
+
 
   async saveForm() {
     if (this.newFormName) this.formName = this.newFormName
@@ -152,7 +151,7 @@ export class NewFormComponent implements OnInit {
     }
 
     if (this.customAtributes) form['atributes'] = this.customAtributes
-      
+
     this._formConst.saveForm(form)
   }
 

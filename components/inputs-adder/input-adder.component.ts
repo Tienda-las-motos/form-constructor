@@ -12,14 +12,14 @@ import { FormConstructorService } from '../../form-constructor.service';
 })
 export class InputAdderComponent implements OnInit {
 
-  inputTypes
-  @Input() selectedInputTypes: any[]
+  inputTypes: any
+  @Input() selectedInputTypes: any[] = []
   inputModel: InputModel
-  inputType: string
+  inputType: string = ''
   inputExtras: INPUTEXTRA[] = []
-  
+
   INPUT: any
-  
+
   constructor(
     public _inputAdder: InputAdderService,
     public _formConstructor: FormConstructorService
@@ -32,8 +32,8 @@ export class InputAdderComponent implements OnInit {
       .subscribe(types => {
         this.inputTypes = types
       })
-    
-    $('#info').trigger('autoresize');
+
+    // $('#info').trigger('autoresize');
     this.loadInputTypes()
   }
 
@@ -58,25 +58,27 @@ export class InputAdderComponent implements OnInit {
       this.inputModel.tipo == 'multiple'
     ) {
       return this._inputAdder.$opcionesArray.length == 0 ? true : false
+    } else {
+      return false
     }
-  } 
+  }
 
 
   checkData():boolean {
     return (
-      this.inputModel.tipo == 'range' || 
+      this.inputModel.tipo == 'range' ||
         this.inputModel.tipo == 'level') && (
-        !this._inputAdder.$Input['minCant'] || 
+        !this._inputAdder.$Input['minCant'] ||
         !this._inputAdder.$Input['maxCant']
       ) ?  false :  true
-      
+
   }
-  
-    
-  
-  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
-  
-  onRequired(e) {
+
+
+
+  waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
+
+  onRequired(e: any) {
   }
 
   async onCreate() {
@@ -86,7 +88,7 @@ export class InputAdderComponent implements OnInit {
   }
 
 
-  
+
 
 }
 

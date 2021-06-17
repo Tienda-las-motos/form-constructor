@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, QueryList, ViewChildren } from '@angular/core';
 import { Subject, Observable, of } from 'rxjs';
 import { InputModel } from './input models/input.model';
 import { InputTypes } from './input models/inputTypes.model';
@@ -8,11 +8,12 @@ import { InputTypes } from './input models/inputTypes.model';
 })
 export class InputAdderService {
 
-  $Input
+  $Input: any
+  @ViewChildren('opcionInput') opcionInputs!: QueryList<HTMLInputElement>
   constructor() {
     this.$Input = {}
    }
-  waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+  waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
 
   catchNewInput = new Subject<InputModel>()
   $opcionesArray: OPCION[] = []
@@ -27,24 +28,25 @@ export class InputAdderService {
       index: this.$opcionesArray.length
     })
     await this.waitFor(50)
-    var opciones = $('.opcion-input').toArray()
-    let lastOpcion: HTMLInputElement = opciones[opciones.length - 1] as HTMLInputElement
+
+    let lastOpcion: HTMLInputElement = this.opcionInputs.last
     lastOpcion.focus()
     lastOpcion.select()
   }
 
-    addOpcionValue(index, value) {
-    this.$opcionesArray[index].value = value
+    addOpcionValue(index: any, event: any) {
+    this.$opcionesArray[index].value = event.targe.value
   }
 
-  delOpcion(i) {
+  delOpcion(i: any) {
     this.$opcionesArray.splice(i, 1)
   }
 
   addInput(input: InputModel) {
 
-    Object.keys(input).forEach(key => input[key] === undefined ? delete input[key] : {});
-    
+    Object.keys(input).forEach(key => input[key as keyof InputModel] === undefined
+      ? delete input[key as keyof InputModel] : {});
+
     if (
       input.tipo == 'select' ||
       input.tipo == 'radius' ||
@@ -58,12 +60,12 @@ export class InputAdderService {
     this.catchNewInput.next(this.$Input)
     this.$Input = {}
     this.$opcionesArray = []
-    return 
+    return
   }
-  
-  
-  getAttr(attr, value) {
-    this.$Input[attr] = value
+
+
+  getAttr(attr: any, event: any) {
+    this.$Input[attr] = event.target.value
   }
 
 

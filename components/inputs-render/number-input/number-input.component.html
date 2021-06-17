@@ -1,9 +1,6 @@
 <div class="col s12 input-field" *ngIf="input">
-    <input type="number" [ngClass]="{ active: input.placeholder }" [id]="input.ID" [name]="input.ID" [value]="setValue()" [required]="input.requerido" placeholder="{{input.placeholder}}" [min]="input.min" [max]="input.max" (blur)="getValue.emit({
-            key:input.ID, 
-            value:$event.target.value
-        })" />
-    <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+    <input type="number" [ngClass]="{ active: input.placeholder }" [id]="input.ID" [name]="input.ID" [value]="setValue()" [required]="input.requerido" placeholder="{{input.placeholder}}" [min]="input.min" [max]="input.max" (blur)="emitValue(input, $event)" />
+    <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
     <label [for]="input.ID" [ngClass]="{ active: input.placeholder || value }">
         {{ input.etiqueta }} <span class="red-text"
               *ngIf="input.requerido">*</span>

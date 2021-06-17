@@ -10,13 +10,13 @@ export class InputsRenderComponent implements OnInit {
 
   @Input() input: any
   @Input() value: any
-  
+
   constructor(private _render: InputRenderServices) { }
 
   ngOnInit() {
   }
 
-  catchValue(res) {
+  catchValue(res:any) {
     // console.log(res)
     this._render.storeValue(res.key, res.value)
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable, ViewChild } from '@angular/core';
 import { InputTypes } from './components/inputs-adder/input models/inputTypes.model';
 import { Observable, of, Subject } from 'rxjs';
 import { InputModel } from './components/inputs-adder/input models/input.model';
@@ -13,7 +13,7 @@ export class FormConstructorService {
   complete = new Subject<any>()
   // mediaWidth: string
 
-  
+  @ViewChild('gdevForm') gdevForm!: ElementRef
 
   constructor(
     private fs: AngularFirestore
@@ -30,9 +30,9 @@ export class FormConstructorService {
     const formRef = collRef.doc(formId)
 
     const inputsArray = await formRef.collection('inputs').orderBy('index').get()
-    var inputs = []
+    var inputs: any[] = []
     inputsArray.forEach(async input => { await inputs.push(input.data()) })
-    
+
     return { form: formDoc, inputs: inputs }
   }
 
@@ -41,23 +41,23 @@ export class FormConstructorService {
     const formRef = collRef.doc(id)
     const formDoc = await (await collRef.doc(id).get()).data()
     const inputsArray = await formRef.collection('inputs').orderBy('index').get()
-    var inputs = []
+    var inputs: any[] = []
     inputsArray.forEach(async input => { await inputs.push(input.data()) })
     return { form: formDoc, inputs: inputs }
   }
 
 
   async saveForm(form: FormModel) {
-      
+
     var collId: string
     const collRef = this.fs.collection(form.collection).ref
 
     const formCreated = await
       (await collRef.where('nombre', '==', form.nombre)
         .get()).docs[0];
-    
-    
-    
+
+
+
     if (!formCreated) {
       form.atributes['nombre'] = form.nombre
       const newColl = await collRef.add(form.atributes)
@@ -68,12 +68,12 @@ export class FormConstructorService {
     } else if(form.atributes) {
 
       await collRef.doc(formCreated.id).update(form.atributes)
-      
+
     }
-    
-    
+
+
     collId = formCreated.id
-    form.inputs.forEach(async (input, inputIndex) => {
+    form.inputs.forEach(async (input: any, inputIndex: number) => {
       input.index = inputIndex + 1
       await collRef.doc(collId).collection('inputs').doc(input.ID).set(input, {merge: true})
     })
@@ -86,7 +86,7 @@ export class FormConstructorService {
 
 
   get mediaWidth(): string {
-    var containerWidth = $("#Gdev-new-form").width()
+    var containerWidth = this.gdevForm.nativeElement.width()
 
     if (containerWidth > 1200) {
       return's4'
@@ -94,7 +94,9 @@ export class FormConstructorService {
       return's6'
     } else if (containerWidth < 900 ) {
       return's12'
+    } else {
+      return 's12'
     }
   }
-  
+
 }

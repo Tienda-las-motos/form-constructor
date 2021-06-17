@@ -4,7 +4,7 @@
         <p>
             <input class="with-gap" [name]="opcion.index" type="radio" [id]="opcion.index" />
             <label [for]="opcion.index"></label>
-            <input class="opcion-input" onkeypress="this.style.width = ((this.value.length + 4) * 8) + 'px';" type="text" [name]="opcion.index" [id]="opcion.index" [value]="opcion.value" (blur)="_adder.addOpcionValue(opcion.index, $event.target.value)" />
+            <input #opcionInput class="opcion-input" onkeypress="this.style.width = ((this.value.length + 4) * 8) + 'px';" type="text" [name]="opcion.index" [id]="opcion.index" [value]="opcion.value" (blur)="_adder.addOpcionValue(opcion.index, $event)" />
             <span class="del-opcion" (click)="_adder.delOpcion(i)"><i class="fas fa-times"></i></span>
         </p>
 

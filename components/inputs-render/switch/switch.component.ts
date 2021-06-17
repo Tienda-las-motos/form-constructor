@@ -9,7 +9,7 @@ import { SwitchModel } from './switch-input.model';
 export class SwitchComponent implements OnInit {
 
   @Input() input: SwitchModel
-  @Input() value
+  @Input() value:any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new SwitchModel('','',false, '','')
@@ -18,16 +18,23 @@ export class SwitchComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSwitch(event) {
+  onSwitch(event: any) {
     this.getValue.emit({key:event.source.id, value: event.checked})
   }
 
   setValue() {
-    if (typeof this.value === 'object') {
+    if (typeof this.value === 'object' && this.input.ID) {
       return this.value ? this.value[this.input.ID] : false
     } else {
       return this.value ? this.value : false
     }
+  }
+
+  emitValue(input: any, event: any) {
+    this.getValue.emit({
+      key:input.ID,
+      value:event.target.value
+  })
   }
 
 }

@@ -6,7 +6,7 @@ import { FormConstructorComponent } from "./form-constructor.component";
 import { NewFormComponent } from './components/new-form/new-form.component';
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { MaterialModule } from 'src/app/material.module';
+import { MaterialModule } from 'shared/material.module';
 
 import { InputAdderComponent } from './components/inputs-adder/input-adder.component';
 import { NumberFormComponent } from "./components/inputs-adder/number-form/number-form.component";

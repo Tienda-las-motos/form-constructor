@@ -7,7 +7,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 })
 export class InfoBoxComponent implements OnInit {
 
-  @Input() data: Data
+  @Input() data!: Data
   constructor() { }
 
   ngOnInit() {
@@ -17,19 +17,19 @@ export class InfoBoxComponent implements OnInit {
       this.data.tipo == 'range' ||
       this.data.tipo == 'switch' ||
       this.data.tipo == 'multiple' ||
-      this.data.tipo == 'select' || 
+      this.data.tipo == 'select' ||
       this.data.tipo == 'radius'
     ) {
-      $('.info-box').css({'right': '-20px', 'top': '-30px'})
+      // $('.info-box').css({'right': '-20px', 'top': '-30px'})
     }
   }
-  
+
   showInfo() {
-    $(`#${this.data.ID}.info-box`).fadeIn()
+    // $(`#${this.data.ID}.info-box`).fadeIn()
   }
 
   hideInfo() {
-    $(`#${this.data.ID}.info-box`).fadeOut()
+    // $(`#${this.data.ID}.info-box`).fadeOut()
   }
 
 }

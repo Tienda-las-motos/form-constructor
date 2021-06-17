@@ -9,7 +9,7 @@ import { SelectModel } from './select-input.model';
 export class SelectComponent implements OnInit {
 
   @Input() input: SelectModel
-  @Input() value
+  @Input() value: any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
   constructor() {
     this.input = new SelectModel('','',false, [])
@@ -17,7 +17,7 @@ export class SelectComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   setValue() {
     if (typeof this.value === 'object') {
       return this.value ? this.value[this.input.ID] : false
@@ -26,7 +26,12 @@ export class SelectComponent implements OnInit {
     }
   }
 
-  
+  emitValue(input: any, event: any) {
+    this.getValue.emit({
+      key:input.ID,
+      value:event.target.value
+  })
+  }
 
 
 }
