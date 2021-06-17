@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/jgu7man/gdev-form-constructor#readme",
   "devDependencies": {
+    "@types/nouislider": "^15.0.0",
+    "@types/wnumb": "^1.2.0",
     "nouislider": "^14.7.0",
     "wnumb": "^1.2.0"
   }
