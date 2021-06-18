@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatSelectChange } from '@angular/material/select';
 import { MultipleModel } from './multiple-input.model';
 
 @Component({
@@ -20,16 +22,8 @@ export class MultipleComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleOpcion(opcion: any, selected: any) {
-    if (selected.target.checked) {
-      this.opciones.push(opcion)
-    } else {
-
-      var itemIndex = this.opciones.findIndex(opc => opc == opcion)
-
-      this.opciones.splice(itemIndex, 1)
-
-    }
+  toggleOpcion( selected: MatSelectChange) {
+    this.opciones = selected.value
 
     this.getValue.emit({
             key:this.input.ID,

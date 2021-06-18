@@ -1,19 +1,24 @@
-<div class="col s12">
-
-    <div class="label-cont" matTooltip="{{input.info}}">
-        <p>
-            {{input.etiqueta}}
-            <span class="red-text" *ngIf="input.requerido">*</span>
-        </p>
-        <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
-    </div>
-    <mat-radio-group>
-        <mat-radio-button *ngFor="let opcion of input.opciones;" [value]="opcion.value" (click)="getValue.emit({
-                            key:this.input.ID, 
-                            value:opcion.value})">
-
-            {{opcion.value}}
-        </mat-radio-button>
-    </mat-radio-group>
-
+<div class="row">
+	<div class="col s12">
+		<div class="label-cont" matTooltip="{{ input.info }}">
+			<p>
+				{{ input.etiqueta }}
+				<span class="red-text" *ngIf="input.requerido">*</span>
+			</p>
+		</div>
+		<mat-radio-group>
+			<mat-radio-button
+				*ngFor="let opcion of input.opciones"
+				[value]="opcion.value"
+				(click)="
+					getValue.emit({
+						key: this.input.ID,
+						value: opcion.value
+					})
+				"
+			>
+				{{ opcion.value }}
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
 </div>

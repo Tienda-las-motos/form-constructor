@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatSelectChange } from '@angular/material/select';
 import { SelectModel } from './select-input.model';
 
 @Component({
@@ -26,10 +28,10 @@ export class SelectComponent implements OnInit {
     }
   }
 
-  emitValue(input: any, event: any) {
+  emitValue(input: any, event: MatSelectChange) {
     this.getValue.emit({
       key:input.ID,
-      value:event.target.value
+      value:event.value
   })
   }
 

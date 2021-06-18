@@ -1,16 +1,13 @@
-<div class="col s12">
-    <div class="label-cont">
-        <label [for]="input.ID">{{input.etiqueta}} <span class="red-text"
-                *ngIf="input.requerido">*</span></label>
-        <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
-    </div>
-    <select [name]="input.ID" [value]="setValue()" [id]="input.ID" class="initialized" (change)="emitValue(input, $event)">
-        <option *ngIf="input.placeholder" disabled selected >
-            {{input.placeholder}}
-        </option>
-        <option *ngFor="let item of input.opciones" [value]="item.value">
-            {{item.value}}
-        </option>
-
-    </select>
+<div class="row">
+  <div class="col s12">
+    <mat-form-field class="label-cont" appearance="outline" matTooltip="{{ input.info }}">
+      <mat-label> {{input.etiqueta}} </mat-label>
+      <mat-select placeholder="{{input.placeholder}}" [value]="setValue()" name="item"
+      (selectionChange)="emitValue(input, $event)" [required]="input.requerido">
+        <mat-option *ngFor="let item of input.opciones" [value]="item.value">
+          {{item.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>

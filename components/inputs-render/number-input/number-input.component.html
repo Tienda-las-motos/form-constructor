@@ -1,8 +1,20 @@
-<div class="col s12 input-field" *ngIf="input">
-    <input type="number" [ngClass]="{ active: input.placeholder }" [id]="input.ID" [name]="input.ID" [value]="setValue()" [required]="input.requerido" placeholder="{{input.placeholder}}" [min]="input.min" [max]="input.max" (blur)="emitValue(input, $event)" />
-    <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
-    <label [for]="input.ID" [ngClass]="{ active: input.placeholder || value }">
-        {{ input.etiqueta }} <span class="red-text"
-              *ngIf="input.requerido">*</span>
-    </label>
+<div class="row">
+  <div class="col s12" *ngIf="input">
+    <mat-form-field appearance="outline"
+    matTooltip="{{ input.info }}">
+      <mat-label> {{ input.etiqueta }} </mat-label>
+      <input
+        matInput
+        type="number"
+        [id]="input.ID"
+        [name]="input.ID"
+        [value]="setValue()"
+        [required]="input.requerido"
+        placeholder="{{ input.placeholder }}"
+        [min]="input.min"
+        [max]="input.max"
+        (blur)="emitValue(input, $event)"
+      />
+    </mat-form-field>
+  </div>
 </div>
