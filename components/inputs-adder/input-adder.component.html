@@ -1,109 +1,132 @@
-<!-- <div class="row">
-</div> -->
 <div class="row" id="data-form">
-    <p>AGREGAR ATRIBUTO</p>
-    <form action="#" onsubmit="return false" #addInput="ngForm">
+	<p>AGREGAR ATRIBUTO</p>
+	<form action="#" onsubmit="return false" #addInput="ngForm">
+		<div class="row" id="tipo-selecter">
 
-        <div class="row" id="tipo-selecter">
-            <div class="col {{_formConstructor.mediaWidth}}">
-                <mat-form-field>
-                    <mat-label>Tipo de input</mat-label>
-                    <mat-select>
-                        <mat-option *ngFor="let tipo of inputTypes" [value]="tipo.type" (click)="inputModel.tipo = tipo.type">
-                            {{tipo.displayName}}
-                        </mat-option>
-                    </mat-select>
+				<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
+					<mat-label>Tipo de input</mat-label>
+					<mat-select name="tipo">
+						<mat-option
+							*ngFor="let tipo of inputTypes"
+							[value]="tipo.type"
+							(click)="inputModel.tipo = tipo.type"
+						>
+							{{ tipo.displayName }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
 
-                </mat-form-field>
+			<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
+        <mat-label>Identificador</mat-label>
+				<input
+          matInput
+					type="text"
+					name="ID"
+					id="ID"
+					placeholder="Ej: primerNombre"
+					[(ngModel)]="inputModel.ID"
+					#ID="ngModel"
+					pattern="[A-Za-z]{1,}"
+					required
+				/>
+			</mat-form-field>
 
-            </div>
-            <div class="col input-field {{_formConstructor.mediaWidth}}">
-                <input type="text" name="ID" id="ID" placeholder="Ej: primerNombre" [(ngModel)]="inputModel.ID" #ID="ngModel" pattern="[A-Za-z]{1,}" required />
-                <label for="ID" class="active">Identificador</label>
-            </div>
-            <div class="col {{_formConstructor.mediaWidth}}">
-                <label for="">Requerido</label>
-                <div class="switch">
-                    <label>
-                        <input type="checkbox"
-                               name="requerido"
-                               [(ngModel)]="inputModel.requerido" />
-                        <span class="lever"></span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="data-required">
+			<div class="col {{ _formConstructor.mediaWidth }}">
+        <mat-slide-toggle name="requerido" [(ngModel)]="inputModel.requerido">Requerido</mat-slide-toggle>
+			</div>
+		</div>
 
-            <div class="col input-field {{_formConstructor.mediaWidth}}">
-                <input type="text" name="etiqueta" id="etiqueta" placeholder="Ej: Primer Nombre" value="Input sin nombre" [(ngModel)]="inputModel.etiqueta" #etiqueta="ngModel" required />
-                <label for="etiqueta" class="active">Etiqueta</label>
-            </div>
+		<div class="row" >
+			<mat-form-field appearance="outline" class="col input-field {{ _formConstructor.mediaWidth }}">
+				<input matInput
+					type="text"
+					name="etiqueta"
+					id="etiqueta"
+					placeholder="Ej: Primer Nombre"
+					value="Input sin nombre"
+					[(ngModel)]="inputModel.etiqueta"
+					#etiqueta="ngModel"
+					required
+				/>
+				<mat-label>Etiqueta</mat-label>
+			</mat-form-field>
 
-            <div class="col input-field {{_formConstructor.mediaWidth}}">
-                <textarea name="info" class="materialize-textarea" id="info" cols="30" rows="10" [(ngModel)]="inputModel.info" placeholder=" (Opcional) Descripción del input "></textarea>
-                <label for="info" class="active">Descripción o información</label>
-            </div>
+			<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
+				<textarea matInput
+					name="info"
+					class="materialize-textarea"
+					id="info"
+					cols="30"
+					rows="10"
+					[(ngModel)]="inputModel.info"
+					placeholder=" (Opcional) Descripción del input "
+				></textarea>
+				<mat-label>Descripción o información</mat-label>
+			</mat-form-field>
 
-            <div class="col input-field {{_formConstructor.mediaWidth}}" *ngIf="inputModel.tipo == 'text' || 
-            inputModel.tipo == 'number' || 
-            inputModel.tipo == 'select' || 
-            inputModel.tipo == 'textarea' || 
-            inputModel.tipo == 'file'">
-                <input type="text" name="placeholder" id="placeholder" placeholder="Algo como esto" [(ngModel)]="inputModel.placeholder" #placeholder="ngModel" />
-                <label for="placeholder" class="active">Placeholder</label>
-            </div>
+			<mat-form-field appearance="outline"
+				class="col input-field {{ _formConstructor.mediaWidth }}"
+				*ngIf="
+					inputModel.tipo == 'text' ||
+					inputModel.tipo == 'number' ||
+					inputModel.tipo == 'select' ||
+					inputModel.tipo == 'textarea' ||
+					inputModel.tipo == 'file'
+				"
+			>
+				<input matInput
+					type="text"
+					name="placeholder"
+					id="placeholder"
+					placeholder="Algo como esto"
+					[(ngModel)]="inputModel.placeholder"
+					#placeholder="ngModel"
+				/>
+				<mat-label>Placeholder</mat-label>
+			</mat-form-field>
+		</div>
+		<div class="row" id="data-extra">
+			<div [ngSwitch]="inputModel.tipo">
+				<div *ngSwitchCase="'number'">
+					<Gdev-number-form></Gdev-number-form>
+				</div>
+				<div *ngSwitchCase="'phone'">
+					<Gdev-number-form></Gdev-number-form>
+				</div>
+				<div *ngSwitchCase="'select'">
+					<Gdev-select-form></Gdev-select-form>
+				</div>
+				<div *ngSwitchCase="'radius'">
+					<Gdev-radius-form></Gdev-radius-form>
+				</div>
+				<div *ngSwitchCase="'switch'">
+					<Gdev-switch-form></Gdev-switch-form>
+				</div>
+				<div *ngSwitchCase="'range'">
+					<Gdev-range-form></Gdev-range-form>
+				</div>
+				<div *ngSwitchCase="'level'">
+					<Gdev-level-form></Gdev-level-form>
+				</div>
+				<div *ngSwitchCase="'multiple'">
+					<Gdev-multiple-form></Gdev-multiple-form>
+				</div>
+				<div *ngSwitchDefault></div>
+			</div>
+		</div>
 
+		<div class="row" id="bottom-bar">
+			<div class="col {{ _formConstructor.mediaWidth }}">
+				<div class="col s4"></div>
+			</div>
+			<div class="col {{ _formConstructor.mediaWidth }}">
+				<button mat-raised-button color="primary"
+        (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
+					Agregar
+				</button>
+			</div>
+		</div>
 
-
-
-
-        </div>
-        <div class="row" id="data-extra">
-            <div [ngSwitch]="inputModel.tipo">
-                <div *ngSwitchCase="'number'">
-                    <Gdev-number-form></Gdev-number-form>
-                </div>
-                <div *ngSwitchCase="'phone'">
-                    <Gdev-number-form></Gdev-number-form>
-                </div>
-                <div *ngSwitchCase="'select'">
-                    <Gdev-select-form></Gdev-select-form>
-                </div>
-                <div *ngSwitchCase="'radius'">
-                    <Gdev-radius-form></Gdev-radius-form>
-                </div>
-                <div *ngSwitchCase="'switch'">
-                    <Gdev-switch-form></Gdev-switch-form>
-                </div>
-                <div *ngSwitchCase="'range'">
-                    <Gdev-range-form></Gdev-range-form>
-                </div>
-                <div *ngSwitchCase="'level'">
-                    <Gdev-level-form></Gdev-level-form>
-                </div>
-                <div *ngSwitchCase="'multiple'">
-                    <Gdev-multiple-form></Gdev-multiple-form>
-                </div>
-                <div *ngSwitchDefault></div>
-            </div>
-
-        </div>
-
-        <div class="row" id="bottom-bar">
-            <div class="col {{_formConstructor.mediaWidth}}">
-
-                <div class="col s4">
-
-                </div>
-            </div>
-            <div class="col {{_formConstructor.mediaWidth}}">
-                <button class="btn" (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
-                Agregar
-            </button>
-            </div>
-        </div>
-
-        <div class="col {{_formConstructor.mediaWidth}}"></div>
-    </form>
+		<div class="col {{ _formConstructor.mediaWidth }}"></div>
+	</form>
 </div>

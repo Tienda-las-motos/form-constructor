@@ -86,14 +86,18 @@ export class FormConstructorService {
 
 
   get mediaWidth(): string {
-    var containerWidth = this.gdevForm.nativeElement.width()
+    if (this.gdevForm) {
+      var containerWidth = this.gdevForm.nativeElement.width()
 
-    if (containerWidth > 1200) {
-      return's4'
-    } else if (containerWidth < 1200 && containerWidth > 900) {
-      return's6'
-    } else if (containerWidth < 900 ) {
-      return's12'
+      if (containerWidth > 1200) {
+        return's4'
+      } else if (containerWidth < 1200 && containerWidth > 900) {
+        return's6'
+      } else if (containerWidth < 900 ) {
+        return's12'
+      } else {
+        return 's12'
+      }
     } else {
       return 's12'
     }
