@@ -13,7 +13,6 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
   selector: 'Gdev-new-form',
   templateUrl: './new-form.component.html',
   styleUrls: ['./new-form.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class NewFormComponent implements OnInit {
 
@@ -25,11 +24,12 @@ export class NewFormComponent implements OnInit {
   @Input() collection: string = 'formularios'
   @Input() formName: string = ''
   @Input() customAtributes: any
-  @Input() inputTypes: [] = []
+  @Input() inputTypes: string[] = []
   @Input() idForm: string = ''
   @Input() autoDisableButton: boolean = true
   newFormName: string = ''
   droped: boolean = false
+  inputSelected?: InputModel
 
 
   constructor(

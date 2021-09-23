@@ -1,6 +1,6 @@
 <div class="row" id="data-form">
 	<p>AGREGAR ATRIBUTO</p>
-	<form action="#" onsubmit="return false" #addInput="ngForm">
+	<form action="#" onsubmit="return false" #addInput="ngForm" *ngIf="inputModel">
 		<div class="row" id="tipo-selecter">
 
 				<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">

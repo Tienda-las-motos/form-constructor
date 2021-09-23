@@ -7,8 +7,8 @@
 
 .input-item {
     display: flex;
-    margin: 2em 0;
-    cursor: grab !important;
+    margin: 0em 0;
+    // cursor: grab !important;
     .mat-expansion-panel {
         width: 100%;
         cursor: grab;
@@ -17,10 +17,15 @@
     }
     .mat-expansion-panel-header {
         position: relative;
-        .delInput {
+        .delInput, .editInput {
             cursor: pointer;
             position: absolute;
-            right: 3em;
+          }
+        .delInput {
+          right: 2em;
+        }
+        .editInput {
+          right: 4em;
         }
     }
     .grabber {
@@ -34,6 +39,7 @@
     Gdev-inputs-render {
         width: 95%;
     }
+
 }
 
 .grabbed {

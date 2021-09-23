@@ -14,7 +14,7 @@ export class InputAdderComponent implements OnInit {
 
   inputTypes: any
   @Input() selectedInputTypes: any[] = []
-  inputModel: InputModel
+  @Input() inputModel?: InputModel
   inputType: string = ''
   inputExtras: INPUTEXTRA[] = []
 
@@ -24,10 +24,12 @@ export class InputAdderComponent implements OnInit {
     public _inputAdder: InputAdderService,
     public _formConstructor: FormConstructorService
   ) {
-    this.inputModel = new InputModel('', '', '', false)
-   }
+  }
 
   ngOnInit() {
+    if ( !this.inputModel ) {
+      this.inputModel = new InputModel('', '', '', false)
+    }
     this._inputAdder.loadInputTypes()
       .subscribe(types => {
         this.inputTypes = types
@@ -53,9 +55,9 @@ export class InputAdderComponent implements OnInit {
 
   checkOptions():boolean {
     if (
-      this.inputModel.tipo == 'select' ||
-      this.inputModel.tipo == 'radius' ||
-      this.inputModel.tipo == 'multiple'
+      this.inputModel!.tipo == 'select' ||
+      this.inputModel!.tipo == 'radius' ||
+      this.inputModel!.tipo == 'multiple'
     ) {
       return this._inputAdder.$opcionesArray.length == 0 ? true : false
     } else {
@@ -66,8 +68,8 @@ export class InputAdderComponent implements OnInit {
 
   checkData():boolean {
     return (
-      this.inputModel.tipo == 'range' ||
-        this.inputModel.tipo == 'level') && (
+      this.inputModel!.tipo == 'range' ||
+        this.inputModel!.tipo == 'level') && (
         !this._inputAdder.$Input['minCant'] ||
         !this._inputAdder.$Input['maxCant']
       ) ?  false :  true
@@ -83,7 +85,7 @@ export class InputAdderComponent implements OnInit {
 
   async onCreate() {
     await this.waitFor(100)
-    await this._inputAdder.addInput(this.inputModel)
+    await this._inputAdder.addInput(this.inputModel!)
     this.inputModel = new InputModel('', '', '', false)
   }
 
