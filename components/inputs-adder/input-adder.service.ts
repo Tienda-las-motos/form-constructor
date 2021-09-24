@@ -1,6 +1,6 @@
 import { Injectable, QueryList, ViewChildren } from '@angular/core';
 import { Subject, Observable, of } from 'rxjs';
-import { InputModel } from './input models/input.model';
+import { iInputOption, InputModel } from './input models/input.model';
 import { InputTypes } from './input models/inputTypes.model';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class InputAdderService {
   waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
 
   catchNewInput = new Subject<InputModel>()
-  $opcionesArray: OPCION[] = []
+  $opcionesArray: iInputOption[] = []
 
   loadInputTypes(): Observable<any> {
     return of(InputTypes)
@@ -34,8 +34,8 @@ export class InputAdderService {
     lastOpcion.select()
   }
 
-    addOpcionValue(index: any, event: any) {
-    this.$opcionesArray[index].value = event.targe.value
+  addOpcionValue(index: any, event: any) {
+    this.$opcionesArray[index].value = event.target.value
   }
 
   delOpcion(i: any) {
@@ -70,7 +70,6 @@ export class InputAdderService {
 
 
 
-
 }
 
-export interface OPCION { value: string, index: number }
+// export interface OPCION { value: string, index: number }

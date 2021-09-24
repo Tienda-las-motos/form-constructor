@@ -52,19 +52,21 @@ export class NewFormComponent implements OnInit {
     this._inputAdder.catchNewInput.subscribe(input => {
 
       if (!input.tipo) input.tipo = 'text';
-      var anInput = this.Inputs.find(inpt => inpt.ID === input.ID)
+      var anInput = this.Inputs.findIndex(inpt => inpt.ID === input.ID)
 
-      if (this.Inputs.length == 0) {
-        input['index'] = 1
+      if ( anInput >= 0 ) {
+        this.Inputs[anInput] = input
       } else {
-        input['index'] = this.Inputs.length + 1
+        input[ 'index' ] = this.Inputs.length ? 1 : this.Inputs.length + 1
+        this.Inputs.push( input)
       }
 
-      !anInput ? this.Inputs.push(input) :
-        (
-          console.warn(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`),
-          alert(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`)
-        )
+      this.autoDisableButton = false
+      // !anInput ? this.Inputs.push(input) :
+      //   (
+      //     console.warn(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`),
+      //     alert(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`)
+      //   )
     })
   }
 
@@ -91,14 +93,18 @@ export class NewFormComponent implements OnInit {
 
   get changes(): boolean {
     var anyChange
-    if (this.Inputs.length !== this.inputsInDB) {
+    if ( this.Inputs.length !== this.inputsInDB ) {
+      // console.log( this.Inputs.length !== this.inputsInDB )
       return true
-    } else if (this.droped) {
+    } else if ( this.droped ) {
+      // console.log( this.droped )
       return true
-    } else if (this.Inputs.length == 0) {
+    } else if ( this.Inputs.length == 0 ) {
+      // console.log( this.Inputs.length == 0 )
       return false
     } else {
-      return false
+      // console.log( this.autoDisableButton )
+      return !this.autoDisableButton
     }
     // return anyChange
   }

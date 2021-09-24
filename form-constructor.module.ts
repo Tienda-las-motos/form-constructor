@@ -23,6 +23,7 @@ import { FileFormComponent } from './components/inputs-adder/file-form/file-form
 import { InputRenderModule } from "./components/inputs-render/input-render.module";
 import { InputsRenderComponent } from './components/inputs-render/inputs-render.component';
 import { CallFormComponent } from './components/call-form/call-form.component';
+import { OptionsFormComponent } from './components/inputs-adder/options-form/options-form.component';
 
 
 
@@ -42,6 +43,7 @@ import { CallFormComponent } from './components/call-form/call-form.component';
     DateFormComponent,
     TimeFormComponent,
     FileFormComponent,
+    OptionsFormComponent,
     InputsRenderComponent,
   ],
   imports: [

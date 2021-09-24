@@ -1,6 +1,19 @@
-<div class="col s12 m4 input-field">
-    <input class="extra" type="number" name="min" id="min" placeholder="Número menor" (blur)="_adder.getAttr('min', +$event)" />
-</div>
-<div class="col s12 m4 input-field">
-    <input class="extra" type="number" name="max" id="max" placeholder="Número mayor" (blur)="_adder.getAttr('max', +$event)" />
-</div>
+<mat-form-field class="col s6" appearance="outline">
+  <mat-label>Valor mínimo</mat-label>
+  <input
+  matInput
+  type="number"
+  name="min"
+  (blur)="_adder.getAttr('min', +$event)"
+  >
+</mat-form-field>
+
+<mat-form-field class="col s6" appearance="outline">
+  <mat-label>Valor máximo</mat-label>
+  <input
+  matInput
+  type="number"
+  name="max"
+  (blur)="_adder.getAttr('max', +$event)"
+  >
+</mat-form-field>

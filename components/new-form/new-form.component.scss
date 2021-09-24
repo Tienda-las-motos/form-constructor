@@ -17,24 +17,28 @@
     }
     .mat-expansion-panel-header {
         position: relative;
+        padding: 0 24px 0 32px;
         .delInput, .editInput {
             cursor: pointer;
             position: absolute;
           }
         .delInput {
-          right: 2em;
+          right: 3em;
         }
         .editInput {
-          right: 4em;
+          right: 5em;
         }
     }
     .grabber {
-        display: inline-flex;
-        width: 20px;
-        background: #ccc;
-        align-items: center;
-        justify-content: center;
-        cursor: grab !important;
+      display: inline-flex;
+      width: 20px;
+      align-items: center;
+      justify-content: center;
+      cursor: grab !important;
+      transform: rotate(90deg);
+      color: rgba(0,0,0,0.5);
+      left: 5px;
+      position: absolute;
     }
     Gdev-inputs-render {
         width: 95%;

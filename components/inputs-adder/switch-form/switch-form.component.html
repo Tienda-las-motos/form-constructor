@@ -1,16 +1,14 @@
-<div class="row">
-    <div class="col s3">
-        <input type="text" name="trueText" id="trueText" (blur)="_adder.getAttr('trueText', $event)" placeholder="Texto en off">
+<div class="col s3">
+    <input type="text" name="trueText" id="trueText" (blur)="_adder.getAttr('trueText', $event)" placeholder="Texto en off">
+</div>
+<div class="col s1">
+    <div class="switch">
+        <label>
+            <input type="checkbox">
+            <span class="lever"></span>
+        </label>
     </div>
-    <div class="col s1">
-        <div class="switch">
-            <label>
-                <input type="checkbox">
-                <span class="lever"></span>
-            </label>
-        </div>
-    </div>
-    <div class="col s3">
-        <input type="text" name="falseText" id="falseText" (blur)="_adder.getAttr('falseText', $event)" placeholder="Texto en on">
-    </div>
+</div>
+<div class="col s3">
+    <input type="text" name="falseText" id="falseText" (blur)="_adder.getAttr('falseText', $event)" placeholder="Texto en on">
 </div>

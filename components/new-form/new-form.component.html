@@ -18,7 +18,7 @@
 						<button
 							mat-raised-button
 							color="primary"
-							[disabled]="autoDisableButton && !changes"
+							[disabled]="!changes"
 							(click)="saveForm()"
 						>
 							Guardar formulario
@@ -36,7 +36,7 @@
 					</mat-card-header>
 					<mat-card-content>
 						<Gdev-input-adder [selectedInputTypes]="inputTypes"
-            [inputModel]="inputSelected"></Gdev-input-adder>
+            [InputModel]="inputSelected!"></Gdev-input-adder>
 					</mat-card-content>
 				</mat-card>
 			</div>
@@ -51,10 +51,11 @@
 							<mat-expansion-panel>
 								<mat-expansion-panel-header>
 									<div class="grabber">
-										<i class="fas fa-ellipsis-h"></i>
+                    <mat-icon>drag_indicator</mat-icon>
+										<!-- <i class="fas fa-ellipsis-h"></i> -->
 									</div>
 									{{ input.etiqueta }}
-                  <span class="editInput" (click)="inputSelected = input">
+                  <span class="editInput blue-text" (click)="inputSelected = input">
                     <i class="fas fa-pencil-alt"></i>
                   </span>
 									<span class="delInput" (click)="delInput(input.ID)">

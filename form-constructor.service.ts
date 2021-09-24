@@ -4,6 +4,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { InputModel } from './components/inputs-adder/input models/input.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormModel } from './models/form.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class FormConstructorService {
   @ViewChild('gdevForm') gdevForm!: ElementRef
 
   constructor(
-    private fs: AngularFirestore
+    private fs: AngularFirestore,
+    private _snack: MatSnackBar
   ) {
    }
 
@@ -78,6 +80,7 @@ export class FormConstructorService {
       await collRef.doc(collId).collection('inputs').doc(input.ID).set(input, {merge: true})
     })
 
+    this._snack.open('Formulario guardado', 'Ok')
     this.complete.next(true)
 
   }

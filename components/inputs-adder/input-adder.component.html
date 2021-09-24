@@ -57,7 +57,7 @@
 					class="materialize-textarea"
 					id="info"
 					cols="30"
-					rows="10"
+					rows="3"
 					[(ngModel)]="inputModel.info"
 					placeholder=" (Opcional) Descripción del input "
 				></textarea>
@@ -70,6 +70,7 @@
 					inputModel.tipo == 'text' ||
 					inputModel.tipo == 'number' ||
 					inputModel.tipo == 'select' ||
+					inputModel.tipo == 'multiple' ||
 					inputModel.tipo == 'textarea' ||
 					inputModel.tipo == 'file'
 				"
@@ -85,48 +86,48 @@
 				<mat-label>Placeholder</mat-label>
 			</mat-form-field>
 		</div>
-		<div class="row" id="data-extra">
-			<div [ngSwitch]="inputModel.tipo">
-				<div *ngSwitchCase="'number'">
+
+    <div class="row" id="data-extra">
+			<span [ngSwitch]="inputModel.tipo">
+				<span *ngSwitchCase="'number'">
 					<Gdev-number-form></Gdev-number-form>
-				</div>
-				<div *ngSwitchCase="'phone'">
+				</span>
+				<span *ngSwitchCase="'phone'">
 					<Gdev-number-form></Gdev-number-form>
-				</div>
-				<div *ngSwitchCase="'select'">
-					<Gdev-select-form></Gdev-select-form>
-				</div>
-				<div *ngSwitchCase="'radius'">
-					<Gdev-radius-form></Gdev-radius-form>
-				</div>
-				<div *ngSwitchCase="'switch'">
+				</span>
+				<span *ngSwitchCase="'select'">
+					<Gdev-options-form></Gdev-options-form>
+				</span>
+				<span *ngSwitchCase="'radius'">
+					<Gdev-options-form></Gdev-options-form>
+				</span>
+				<span *ngSwitchCase="'switch'">
 					<Gdev-switch-form></Gdev-switch-form>
-				</div>
-				<div *ngSwitchCase="'range'">
+				</span>
+				<span *ngSwitchCase="'range'">
 					<Gdev-range-form></Gdev-range-form>
-				</div>
-				<div *ngSwitchCase="'level'">
+				</span>
+				<span *ngSwitchCase="'level'">
 					<Gdev-level-form></Gdev-level-form>
-				</div>
-				<div *ngSwitchCase="'multiple'">
-					<Gdev-multiple-form></Gdev-multiple-form>
-				</div>
-				<div *ngSwitchDefault></div>
-			</div>
+				</span>
+				<span *ngSwitchCase="'multiple'">
+					<Gdev-options-form></Gdev-options-form>
+				</span>
+				<span *ngSwitchDefault></span>
+			</span>
 		</div>
 
 		<div class="row" id="bottom-bar">
-			<div class="col {{ _formConstructor.mediaWidth }}">
-				<div class="col s4"></div>
-			</div>
-			<div class="col {{ _formConstructor.mediaWidth }}">
-				<button mat-raised-button color="primary"
+			<div class="col s6 center">
+				<button mat-raised-button color="primary" type="button"
         (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
-					Agregar
+					Guardar
 				</button>
 			</div>
+      <div class="col s6 center">
+        <button mat-raised-button color="accent" type="button"
+        (click)="cancelForm()">Cancelar</button>
+      </div>
 		</div>
-
-		<div class="col {{ _formConstructor.mediaWidth }}"></div>
 	</form>
 </div>

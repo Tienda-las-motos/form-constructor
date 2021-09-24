@@ -3,6 +3,8 @@ import { InputModel } from './input models/input.model';
 import { InputAdderService } from './input-adder.service';
 import { InputTypes } from "./input models/inputTypes.model";
 import { FormConstructorService } from '../../form-constructor.service';
+import { BehaviorSubject } from 'rxjs';
+import { distinctUntilKeyChanged, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'Gdev-input-adder',
@@ -14,7 +16,9 @@ export class InputAdderComponent implements OnInit {
 
   inputTypes: any
   @Input() selectedInputTypes: any[] = []
-  @Input() inputModel?: InputModel
+  private _inputModel: BehaviorSubject<InputModel> = new BehaviorSubject(new InputModel('', '', '', false));
+  @Input() set InputModel(input: InputModel) { this._inputModel.next(input); }
+  inputModel!: InputModel
   inputType: string = ''
   inputExtras: INPUTEXTRA[] = []
 
@@ -24,19 +28,29 @@ export class InputAdderComponent implements OnInit {
     public _inputAdder: InputAdderService,
     public _formConstructor: FormConstructorService
   ) {
+    this._inputModel.pipe(
+      filter( input => !!input ),
+      distinctUntilKeyChanged('ID')
+    ).subscribe( input => {
+      this.inputModel = input
+      console.log( this.inputModel )
+        if (
+          this.inputModel!.tipo == 'select' ||
+          this.inputModel!.tipo == 'radius' ||
+          this.inputModel!.tipo == 'multiple'
+        ) {
+          this._inputAdder.$opcionesArray = this.inputModel['opciones'] || []
+        }
+    })
   }
 
   ngOnInit() {
-    if ( !this.inputModel ) {
-      this.inputModel = new InputModel('', '', '', false)
-    }
     this._inputAdder.loadInputTypes()
-      .subscribe(types => {
-        this.inputTypes = types
-      })
+      .subscribe(types => { this.inputTypes = types })
 
-    // $('#info').trigger('autoresize');
     this.loadInputTypes()
+    // console.log( this.inputModel )
+
   }
 
   loadInputTypes() {
@@ -89,7 +103,9 @@ export class InputAdderComponent implements OnInit {
     this.inputModel = new InputModel('', '', '', false)
   }
 
-
+  cancelForm() {
+    this.inputModel = new InputModel('', '', '', false)
+  }
 
 
 }
