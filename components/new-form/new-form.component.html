@@ -55,14 +55,19 @@
 										<!-- <i class="fas fa-ellipsis-h"></i> -->
 									</div>
 									{{ input.etiqueta }}
-                  <span class="editInput blue-text" (click)="inputSelected = input">
-                    <i class="fas fa-pencil-alt"></i>
-                  </span>
-									<span class="delInput" (click)="delInput(input.ID)">
-										<i class="fas fa-trash red-text"></i>
-									</span>
+                  <small class="editInput blue-text" (click)="inputSelected = input">
+                    <mat-icon>edit</mat-icon>
+                  </small>
+									<small class="delInput red-text" (click)="delInput(input.ID)">
+										<mat-icon>delete</mat-icon>
+									</small>
 								</mat-expansion-panel-header>
 								<Gdev-inputs-render [input]="input"></Gdev-inputs-render>
+
+                <!-- <mat-action-row>
+                  <button mat-button (click)="editInput(input.ID)">Editar</button>
+                  <button mat-button (click)="delInput(input.ID)">Eliminar</button>
+                </mat-action-row> -->
 							</mat-expansion-panel>
 						</div>
 					</mat-card-content>
