@@ -22,7 +22,8 @@ export class FormConstructorService {
   ) {
    }
 
-  async callFormByName(collection: string, formName: string) {
+  async callFormByName( collection: string, formName: string ) {
+    console.log( collection, formName )
     const collRef = this.fs.collection(collection).ref
     const docRef = collRef.where('nombre', '==', formName)
 
@@ -33,7 +34,8 @@ export class FormConstructorService {
 
     const inputsArray = await formRef.collection('inputs').orderBy('index').get()
     var inputs: any[] = []
-    inputsArray.forEach(async input => { await inputs.push(input.data()) })
+    inputsArray.forEach( async input => { await inputs.push( input.data() ) } )
+    console.log( inputs, inputsArray )
 
     return { form: formDoc, inputs: inputs }
   }

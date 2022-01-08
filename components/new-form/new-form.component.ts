@@ -80,6 +80,8 @@ export class NewFormComponent implements OnInit {
       response = await this._formConst.callFormById(this.collection, this.idForm)
     }
 
+    console.log( response )
+
     if (response) {
 
       this.Inputs = response.inputs
