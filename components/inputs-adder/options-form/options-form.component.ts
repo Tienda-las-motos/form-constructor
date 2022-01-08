@@ -27,7 +27,6 @@ export class OptionsFormComponent implements OnInit {
     })
     await this.waitFor(50)
 
-    console.log( this.opcionInputs )
     let lastOpcion: HTMLInputElement = this.opcionInputs.last.nativeElement
     lastOpcion.focus()
     lastOpcion.select()

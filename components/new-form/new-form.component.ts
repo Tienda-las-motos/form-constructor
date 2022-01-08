@@ -31,6 +31,7 @@ export class NewFormComponent implements OnInit {
   droped: boolean = false
   inputSelected?: InputModel
 
+  @Output() submited: EventEmitter<any> = new EventEmitter()
 
   constructor(
     private _inputAdder: InputAdderService,
@@ -158,7 +159,9 @@ export class NewFormComponent implements OnInit {
 
     if (this.customAtributes) form['atributes'] = this.customAtributes
 
-    this._formConst.saveForm(form)
+    await this._formConst.saveForm( form )
+
+    this.submited.emit(form)
   }
 
 }

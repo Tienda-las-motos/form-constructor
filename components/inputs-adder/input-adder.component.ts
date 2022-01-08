@@ -33,7 +33,6 @@ export class InputAdderComponent implements OnInit {
       distinctUntilKeyChanged('ID')
     ).subscribe( input => {
       this.inputModel = input
-      console.log( this.inputModel )
         if (
           this.inputModel!.tipo == 'select' ||
           this.inputModel!.tipo == 'radius' ||

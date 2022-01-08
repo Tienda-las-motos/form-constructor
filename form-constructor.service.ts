@@ -49,32 +49,36 @@ export class FormConstructorService {
   }
 
 
-  async saveForm(form: FormModel) {
+  async saveForm( form: FormModel ) {
+
+    console.log( form )
 
     var collId: string
     const collRef = this.fs.collection(form.collection).ref
 
-    const formCreated = await
+    let formCreated = await
       (await collRef.where('nombre', '==', form.nombre)
         .get()).docs[0];
 
 
 
-    if (!formCreated) {
-      form.atributes['nombre'] = form.nombre
+    if ( !formCreated ) {
+      form[ 'atributes' ] = {}
+      form['atributes']['nombre'] = form.nombre
       const newColl = await collRef.add(form.atributes)
 
       collId = newColl.id
-      await collRef.doc(collId).update({ id: collId })
+      await collRef.doc( collId ).update( { id: collId } )
+
 
     } else if(form.atributes) {
 
+      collId = formCreated.id
       await collRef.doc(formCreated.id).update(form.atributes)
 
     }
 
 
-    collId = formCreated.id
     form.inputs.forEach(async (input: any, inputIndex: number) => {
       input.index = inputIndex + 1
       await collRef.doc(collId).collection('inputs').doc(input.ID).set(input, {merge: true})
@@ -83,6 +87,7 @@ export class FormConstructorService {
     this._snack.open('Formulario guardado', 'Ok')
     this.complete.next(true)
 
+    return
   }
 
 
