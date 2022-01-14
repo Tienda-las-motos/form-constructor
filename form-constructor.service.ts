@@ -3,7 +3,7 @@ import { InputTypes } from './components/inputs-adder/input models/inputTypes.mo
 import { Observable, of, Subject } from 'rxjs';
 import { InputModel } from './components/inputs-adder/input models/input.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormModel } from './models/form.model';
+import { FormModel, iFormResult } from './models/form.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
@@ -22,22 +22,22 @@ export class FormConstructorService {
   ) {
    }
 
-  async callFormByName( collection: string, formName: string ) {
-    console.log( collection, formName )
-    const collRef = this.fs.collection(collection).ref
+  async callFormByName( collection: string, formName: string ): Promise<iFormResult> {
+    // console.log( collection, formName )
+    const collRef = this.fs.collection<FormModel>(collection).ref
     const docRef = collRef.where('nombre', '==', formName)
 
     const formsDocs = await docRef.get()
-    const formDoc = await formsDocs.docs[0].data()
-    const formId = await formsDocs.docs[0].id
+    const formDoc = await formsDocs.docs[0]?.data()
+    const formId = await formsDocs.docs[0]?.id
     const formRef = collRef.doc(formId)
 
     const inputsArray = await formRef.collection('inputs').orderBy('index').get()
     var inputs: any[] = []
     inputsArray.forEach( async input => { await inputs.push( input.data() ) } )
-    console.log( inputs, inputsArray )
+    // console.log( inputs, inputsArray )
 
-    return { form: formDoc, inputs: inputs }
+    return <iFormResult> { form: formDoc, inputs: inputs }
   }
 
   async callFormById(collection: string, id: string) {
@@ -54,8 +54,9 @@ export class FormConstructorService {
   async saveForm( form: FormModel ) {
 
     console.log( form )
+    let inputList = form.inputs.map(( i: any )=> {i.ID} )
 
-    var collId: string
+    var formId: string
     const collRef = this.fs.collection(form.collection).ref
 
     let formCreated = await
@@ -64,27 +65,29 @@ export class FormConstructorService {
 
 
 
-    if ( !formCreated ) {
+    if ( !formCreated?.exists ) {
       form[ 'atributes' ] = {}
       form['atributes']['nombre'] = form.nombre
-      const newColl = await collRef.add(form.atributes)
+      const newColl = await collRef.add({
+        ...form,
+        inputs: inputList
+      })
 
-      collId = newColl.id
-      await collRef.doc( collId ).update( { id: collId } )
+      formId = newColl.id
+      await collRef.doc( formId ).update( { id: formId } )
+      await this._saveInputs( form.inputs, formId, form.collection )
 
-
-    } else if(form.atributes) {
-
-      collId = formCreated.id
-      await collRef.doc(formCreated.id).update(form.atributes)
-
+    } else {
+      formId = formCreated.id
+      await collRef.doc( formId ).update( {
+        ...form,
+        inputs: inputList
+      } )
+      if ( form.atributes ) {
+        await collRef.doc( formCreated.id ).update( form.atributes )
+      }
+      await this._saveInputs( form.inputs, formId, form.collection )
     }
-
-
-    form.inputs.forEach(async (input: any, inputIndex: number) => {
-      input.index = inputIndex + 1
-      await collRef.doc(collId).collection('inputs').doc(input.ID).set(input, {merge: true})
-    })
 
     this._snack.open('Formulario guardado', 'Ok')
     this.complete.next(true)
@@ -93,6 +96,16 @@ export class FormConstructorService {
   }
 
 
+  private async _saveInputs( inputs: any[], fid: string, collection: string ) {
+
+    const inputsColRef = this.fs
+      .collection( `${ collection }/${ fid }/inputs` ).ref
+
+    inputs.forEach(async (input: any, inputIndex: number) => {
+      input.index = inputIndex + 1
+      await inputsColRef.doc(input.ID).set(input, {merge: true})
+    })
+  }
 
 
   get mediaWidth(): string {

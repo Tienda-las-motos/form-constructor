@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { iFormResult } from 'shared/form-constructor/models/form.model';
 import { FormConstructorService } from '../../form-constructor.service';
 import { InputModel } from '../inputs-adder/input models/input.model';
 import { InputRenderServices } from '../inputs-render/input-render.service';
@@ -15,7 +16,12 @@ export class  CallFormComponent implements OnInit {
   @Input() value: any
   @Input() formName: string = ''
   @Input() collection: string = 'formularios'
+
   @Output() formValues: EventEmitter<{}> = new EventEmitter()
+  @Output() formLoaded: EventEmitter<iFormResult> = new EventEmitter()
+  @Output() emptyForm: EventEmitter<void> = new EventEmitter()
+
+
 
   constructor(
     private _formConst: FormConstructorService,
@@ -32,10 +38,13 @@ export class  CallFormComponent implements OnInit {
     })
   }
 
-  callForm() {
+  async callForm() {
     if (this.formName) {
-      this._formConst.callFormByName(this.collection, this.formName)
-        .then(res => { this.Inputs = res.inputs })
+      const formResult = await this._formConst
+        .callFormByName( this.collection, this.formName )
+      this.Inputs = formResult.inputs
+      this.formLoaded.emit( formResult )
+      if (this.Inputs.length <= 0) {this.emptyForm.emit()}
     }
   }
 
