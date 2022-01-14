@@ -53,8 +53,7 @@ export class FormConstructorService {
 
   async saveForm( form: FormModel ) {
 
-    console.log( form )
-    let inputList = form.inputs.map(( i: any )=> {i.ID} )
+    let inputList = form.inputs.map(( i: any )=> i.ID )
 
     var formId: string
     const collRef = this.fs.collection(form.collection).ref
