@@ -6,7 +6,7 @@
         [name]="input.ID"
         [value]="setValue()"
         [required]="input.requerido"
-        placeholder="{{ input.placeholder }}"
+        placeholder="{{ input.placeholder || ''}}"
         (blur)="emitValue(input, $event)"
       />
     </mat-form-field>

@@ -1,9 +1,22 @@
-<div class="pickerPosition"></div>
+<!-- <div class="pickerPosition"></div>
 
 <div class="col s12 input-field">
     <input type="text" (change)="getDate()" class="datepicker" [name]="input.ID" [value]="setValue()" [id]="input.ID" [placeholder]="input.placeholder">
     <label [ngClass]="{'active': input.placeholder}" [for]="input.ID">
         {{input.etiqueta}}
     </label>
-    <!-- <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box> -->
-</div>
+    <Gdev-info-box *ngIf="input.info" [data]="input"></Gdev-info-box>
+</div> -->
+
+<mat-form-field appearance="outline">
+    <mat-label>{{input.etiqueta}}</mat-label>
+    <input matInput 
+        [matDatepicker]="picker" 
+        [name]="input.ID" 
+        [value]="setValue()" 
+        [id]="input.ID" 
+        [placeholder]="input.placeholder || ''"
+        (dateChange)="getDate($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>

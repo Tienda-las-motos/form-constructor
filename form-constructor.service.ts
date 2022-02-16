@@ -28,8 +28,8 @@ export class FormConstructorService {
     const docRef = collRef.where('nombre', '==', formName)
 
     const formsDocs = await docRef.get()
-    const formDoc = await formsDocs.docs[0]?.data()
-    const formId = await formsDocs.docs[0]?.id
+    const formDoc = formsDocs.docs[0]?.data()
+    const formId = formsDocs.docs[0]?.id
     const formRef = collRef.doc(formId)
 
     const inputsArray = await formRef.collection('inputs').orderBy('index').get()

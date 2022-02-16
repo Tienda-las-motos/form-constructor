@@ -22,7 +22,7 @@ export class TextareaComponent implements OnInit {
 
   setValue() {
     if (typeof this.value === 'object') {
-      return this.value ? this.value[this.input.ID] : false
+      return this.value ? (this.value[this.input.ID] || '') : false
     } else {
       return this.value ? this.value : false
     }

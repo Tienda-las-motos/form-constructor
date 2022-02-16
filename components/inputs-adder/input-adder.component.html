@@ -1,10 +1,10 @@
 <div class="row" id="data-form">
-	<p>AGREGAR ATRIBUTO</p>
+	<p>Personaliza el campo y agregalo a la lista de campos agregados al formulario. Una vez terminado, no olvide Guardar el formulario</p>
 	<form action="#" onsubmit="return false" #addInput="ngForm" *ngIf="inputModel">
 		<div class="row" id="tipo-selecter">
 
 				<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
-					<mat-label>Tipo de input</mat-label>
+					<mat-label>Tipo de campo</mat-label>
 					<mat-select name="tipo">
 						<mat-option
 							*ngFor="let tipo of inputTypes"
@@ -29,10 +29,12 @@
 					pattern="[A-Za-z]{1,}"
 					required
 				/>
+				<mat-hint>Un nombre sin espacios, diagonales ni caracteres especiales como acentos, comillas o numerales</mat-hint>
 			</mat-form-field>
 
 			<div class="col {{ _formConstructor.mediaWidth }}">
         <mat-slide-toggle name="requerido" [(ngModel)]="inputModel.requerido">Requerido</mat-slide-toggle>
+				<mat-hint>Activa este switch si quieres que tu campo sea necesario llenarse</mat-hint>
 			</div>
 		</div>
 
@@ -49,6 +51,7 @@
 					required
 				/>
 				<mat-label>Etiqueta</mat-label>
+				<mat-hint>Nombre visible del campo</mat-hint>
 			</mat-form-field>
 
 			<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
@@ -121,7 +124,7 @@
 			<div class="col s6 center">
 				<button mat-raised-button color="primary" type="button"
         (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
-					Guardar
+					Agregar
 				</button>
 			</div>
       <div class="col s6 center">

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatepickerModel, DateTime } from './datepicker.model';
 declare var $: any;
 declare var jQuery:any;
@@ -11,17 +13,14 @@ declare var jQuery:any;
 export class DatepickerComponent implements OnInit {
 
   @Input() input: DatepickerModel
-  datetime!: DateTime
-  waitFor = (ms:number) => new Promise(r => setTimeout(r, ms))
   @Input() value:any
   @Output() getValue: EventEmitter<any> = new EventEmitter()
+
   constructor() {
     this.input = new DatepickerModel('', '')
    }
 
   async ngOnInit() {
-    await this.waitFor(1000)
-    this.initDatePicker()
   }
 
   setValue() {
@@ -32,45 +31,12 @@ export class DatepickerComponent implements OnInit {
     }
   }
 
-  getDate() {
-    // Toma la fecha elegida
-    var date = $('#Date').val(),
-      splitDate = date.split(' '),
-      year = splitDate[0],
-      month = splitDate[1] - 1,
-      day = splitDate[2];
-
-      this.datetime.year = +year
-      this.datetime.month = +month
-      this.datetime.day = +day
+  getDate(event: MatDatepickerInputEvent<Date>) {
     this.getValue.emit({
             key: this.input.ID,
-            value:new Date(+year, +month, +day)
+            value: event.value
           })
   }
 
-  initDatePicker() {
-    $('.datepicker').datepicker({
-      selectMonths: false,
-      i18n: {
-        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
-        weekdays: ["Domingo","Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        weekdaysShort: ["Dom","Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-        weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"],
-            },
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: true,
-      format: 'yyyy mm dd',
-      container: '.pickerPosition',
-    })
-
-    $('.datepicker').on('mousedown',
-      function (event: any) {
-      event.preventDefault();
-    })
-  }
 
 }

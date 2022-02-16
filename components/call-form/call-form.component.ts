@@ -31,9 +31,9 @@ export class  CallFormComponent implements OnInit {
    }
 
   ngOnInit() {
+    // console.log( this.formName, this.collection )
     this.callForm()
     this._render.getValue.subscribe(res => {
-      // console.log(res)
       this.formValues.emit(res)
     })
   }
@@ -42,6 +42,7 @@ export class  CallFormComponent implements OnInit {
     if (this.formName) {
       const formResult = await this._formConst
         .callFormByName( this.collection, this.formName )
+      // console.log( formResult )
       this.Inputs = formResult.inputs
       this.formLoaded.emit( formResult )
       if (this.Inputs.length <= 0) {this.emptyForm.emit()}

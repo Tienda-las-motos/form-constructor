@@ -24,8 +24,10 @@ export class TextInputComponent implements OnInit {
   }
 
   setValue() {
+    // console.log( this.value )
+    // console.log( this.value[this.input.ID] )
     if (typeof this.value === 'object') {
-      return this.value ? this.value[this.input.ID] : ''
+      return this.value ? (this.value[this.input.ID] || '') : ''
     } else {
       return this.value ? this.value : ''
     }
