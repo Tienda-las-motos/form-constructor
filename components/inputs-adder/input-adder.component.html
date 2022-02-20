@@ -16,7 +16,9 @@
 					</mat-select>
 				</mat-form-field>
 
-			<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
+			<mat-form-field appearance="outline" class="col"
+			id="ID"
+			 [ngClass]="_formConstructor.mediaWidth">
         <mat-label>Identificador</mat-label>
 				<input
           matInput
@@ -28,14 +30,17 @@
 					#ID="ngModel"
 					pattern="[A-Za-z]{1,}"
 					required
+					[disabled]="created"
 				/>
 				<mat-hint>Un nombre sin espacios, diagonales ni caracteres especiales como acentos, comillas o numerales</mat-hint>
 			</mat-form-field>
 
-			<div class="col {{ _formConstructor.mediaWidth }}">
+			<mat-form-field class="col flat"
+			[ngClass]="_formConstructor.mediaWidth">
+				<input type="text" matInput hidden>
         <mat-slide-toggle name="requerido" [(ngModel)]="inputModel.requerido">Requerido</mat-slide-toggle>
 				<mat-hint>Activa este switch si quieres que tu campo sea necesario llenarse</mat-hint>
-			</div>
+			</mat-form-field>
 		</div>
 
 		<div class="row" >

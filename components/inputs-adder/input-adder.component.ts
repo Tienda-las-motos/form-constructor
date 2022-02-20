@@ -23,6 +23,7 @@ export class InputAdderComponent implements OnInit {
   inputExtras: INPUTEXTRA[] = []
 
   INPUT: any
+  created: boolean = false
 
   constructor(
     public _inputAdder: InputAdderService,
@@ -32,6 +33,7 @@ export class InputAdderComponent implements OnInit {
       filter( input => !!input ),
       distinctUntilKeyChanged('ID')
     ).subscribe( input => {
+      if (input.ID) this.created = true
       this.inputModel = input
         if (
           this.inputModel!.tipo == 'select' ||
@@ -99,11 +101,13 @@ export class InputAdderComponent implements OnInit {
   async onCreate() {
     await this.waitFor(100)
     await this._inputAdder.addInput(this.inputModel!)
-    this.inputModel = new InputModel('', '', '', false)
+    this.inputModel = new InputModel( '', '', '', false )
+    this.created = false
   }
 
   cancelForm() {
-    this.inputModel = new InputModel('', '', '', false)
+    this.inputModel = new InputModel( '', '', '', false )
+    this.created = false
   }
 
 

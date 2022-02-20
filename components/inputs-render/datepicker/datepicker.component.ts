@@ -24,11 +24,17 @@ export class DatepickerComponent implements OnInit {
   }
 
   setValue() {
-    if (typeof this.value === 'object') {
-      return this.value ? this.value[this.input.ID] : false
-    } else {
-      return this.value ? this.value : false
-    }
+    const value = this.value
+      ? typeof this.value === 'object'
+        ? this.value[ this.input.ID ]
+        : this.value
+      : new Date()
+    
+    const date = 'seconds' in value
+      ? new Date( value.seconds * 1000 )
+      : value instanceof Date ? value : new Date( value )
+    
+    return date
   }
 
   getDate(event: MatDatepickerInputEvent<Date>) {
