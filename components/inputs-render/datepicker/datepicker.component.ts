@@ -26,8 +26,8 @@ export class DatepickerComponent implements OnInit {
   setValue() {
     const value = this.value
       ? typeof this.value === 'object'
-        ? this.value[ this.input.ID ]
-        : this.value
+        ? this.value[ this.input.ID ] || new Date()
+        : this.value || new Date()
       : new Date()
     
     const date = 'seconds' in value

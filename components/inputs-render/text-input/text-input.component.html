@@ -8,5 +8,6 @@
         [required]="input.requerido"
         placeholder="{{ input.placeholder || ''}}"
         (blur)="emitValue(input, $event)"
+        (keyup)="emitValue(input, $event)"
       />
     </mat-form-field>

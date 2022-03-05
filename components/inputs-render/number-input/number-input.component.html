@@ -13,6 +13,7 @@
         [min]="input.min"
         [max]="input.max"
         (blur)="emitValue(input, $event)"
+        (keyup)="emitValue(input, $event)"
       />
     </mat-form-field>
   <!-- </div> -->

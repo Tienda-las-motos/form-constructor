@@ -10,6 +10,7 @@
         [required]="input.requerido"
         placeholder="{{ input.placeholder }}"
         (blur)="emitValue(input, $event)"
+        (keyup)="emitValue(input, $event)"
         [rows]="5"
       ></textarea>
     </mat-form-field>
