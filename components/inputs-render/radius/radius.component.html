@@ -6,7 +6,7 @@
 				<span class="red-text" *ngIf="input.requerido">*</span>
 			</p>
 		</div>
-		<mat-radio-group>
+		<mat-radio-group [value]="setValue()">
 			<mat-radio-button
 				*ngFor="let opcion of input.opciones"
 				[value]="opcion.value"

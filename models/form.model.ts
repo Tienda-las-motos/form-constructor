@@ -1,8 +1,10 @@
+import { iFieldReference } from "../components/inputs-adder/input models/input.model"
+
 export class FormModel {
   public nombre: string
   public collection: string
-  public inputs: any
-  public atributes?: any
+  public inputs: iFieldReference[]
+  public atributos?: any
   public id?: string
 
   constructor () {

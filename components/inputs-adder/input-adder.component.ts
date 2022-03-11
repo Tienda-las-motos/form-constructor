@@ -16,7 +16,7 @@ export class InputAdderComponent implements OnInit {
 
   inputTypes: any
   @Input() selectedInputTypes: any[] = []
-  private _inputModel: BehaviorSubject<InputModel> = new BehaviorSubject(new InputModel('', '', '', false));
+  private _inputModel: BehaviorSubject<InputModel> = new BehaviorSubject(new InputModel('', '', '',));
   @Input() set InputModel(input: InputModel) { this._inputModel.next(input); }
   inputModel!: InputModel
   inputType: string = ''
@@ -101,15 +101,25 @@ export class InputAdderComponent implements OnInit {
   async onCreate() {
     await this.waitFor(100)
     await this._inputAdder.addInput(this.inputModel!)
-    this.inputModel = new InputModel( '', '', '', false )
+    this.inputModel = new InputModel( '', '', '' )
     this.created = false
   }
 
   cancelForm() {
-    this.inputModel = new InputModel( '', '', '', false )
+    this.inputModel = new InputModel( '', '', '' )
     this.created = false
   }
 
+  preventKeypress( event: any ) {
+    const k = event.charCode;
+    if (
+      k > 96 && k < 123 || // letras
+      k == 8 || // backspace
+      k == 189 || // guión
+      k == 95 // guión bajo
+    ) return true
+    else return false
+  }
 
 }
 

@@ -63,11 +63,6 @@ export class NewFormComponent implements OnInit {
       }
 
       this.autoDisableButton = false
-      // !anInput ? this.Inputs.push(input) :
-      //   (
-      //     console.warn(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`),
-      //     alert(`Ya existe el ID ${input.ID}, Debes elegir otro Identificador para el atributo`)
-      //   )
     })
   }
 
@@ -156,12 +151,16 @@ export class NewFormComponent implements OnInit {
     var form: FormModel = {
       collection: this.collection,
       nombre: this.formName,
-      inputs: this.Inputs,
+      inputs: this.Inputs.map( ({ID, index, etiqueta, visibile}, i) => ( {
+        ID, etiqueta,
+        index: index || ( i + 1 ),
+        visibile: visibile || true
+      })),
     }
 
-    if (this.customAtributes) form['atributes'] = this.customAtributes
+    if (this.customAtributes) form['atributos'] = this.customAtributes
 
-    await this._formConst.saveForm( form )
+    await this._formConst.saveForm( form, this.Inputs )
 
     this.submited.emit(form)
   }

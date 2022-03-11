@@ -1,10 +1,9 @@
 <div class="container" #gdevForm id="Gdev-new-form">
-	<form onsubmit="return false" action="#" #addForm="ngForm">
-		<mat-card>
+	<form #addForm="ngForm">
+		<mat-card *ngIf="!formName || formName == ''">
 			<mat-card-content>
 				<div class="row" id="form-name">
 					<mat-form-field
-          *ngIf="!formName || formName == ''"
           class="col s12"
           appearance="outline">
 						<mat-label>Nombre del formulario</mat-label>
@@ -14,20 +13,22 @@
             id="formName"
             [(ngModel)]="newFormName" />
 					</mat-form-field>
-
-					<div class="col s12">
-						<button
-							mat-raised-button
-							color="primary"
-							[disabled]="!changes"
-							(click)="saveForm()"
-						>
-							Guardar formulario
-						</button>
-					</div>
 				</div>
 			</mat-card-content>
 		</mat-card>
+
+		<div class="row">
+			<div class="col s12">
+				<button
+					mat-raised-button
+					color="primary"
+					[disabled]="!changes"
+					(click)="saveForm()"
+				>
+					Guardar formulario
+				</button>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col s12 l6" id="input-adder">
@@ -75,5 +76,7 @@
 				</mat-card>
 			</div>
 		</div>
+
+		
 	</form>
 </div>
