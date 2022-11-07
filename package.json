@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/nouislider": "^15.0.0",
     "@types/wnumb": "^1.2.0",
-    "nouislider": "^14.7.0",
+    "nouislider": "^15.2.0",
     "wnumb": "^1.2.0"
   }
 }
