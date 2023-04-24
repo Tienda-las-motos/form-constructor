@@ -35,9 +35,6 @@
     <div *ngSwitchCase="'level'">
         <Gdev-level [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-level>
     </div>
-    <div *ngSwitchCase="'range'">
-        <Gdev-range [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-range>
-    </div>
     <div *ngSwitchCase="'date'">
         <Gdev-datepicker [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-datepicker>
     </div>
