@@ -1,6 +1,6 @@
 export class InputModel {
-  visibile: boolean
-  requerido: boolean
+  visibile: boolean;
+  requerido: boolean;
   constructor(
     public etiqueta: string,
     public ID: string,
@@ -10,21 +10,21 @@ export class InputModel {
     public opciones?: iInputOption[],
     public index?: number,
     requerido?: boolean,
-    visibile?: boolean,
+    visibile?: boolean
   ) {
-    this.requerido = requerido || false
-    this.visibile = visibile || true
+    this.requerido = requerido || false;
+    this.visibile = visibile || true;
   }
 }
 
 export interface iInputOption {
-  value: any,
-  index: number,
+  value: any;
+  index: number;
 }
 
 export interface iFieldReference {
-  ID: string,
-  etiqueta: string,
-  index: number,
-  visibile: boolean
+  ID: string;
+  etiqueta: string;
+  index: number;
+  visibile: boolean;
 }

@@ -1,82 +1,111 @@
-<div class="container" #gdevForm id="Gdev-new-form">
-	<form #addForm="ngForm">
-		<mat-card *ngIf="!formName || formName == ''">
-			<mat-card-content>
-				<div class="row" id="form-name">
-					<mat-form-field
-          class="col s12"
-          appearance="outline">
-						<mat-label>Nombre del formulario</mat-label>
-						<input matInput
-            type="text"
-            name="formName"
-            id="formName"
-            [(ngModel)]="newFormName" />
-					</mat-form-field>
-				</div>
-			</mat-card-content>
-		</mat-card>
+<div
+  class="container"
+  #gdevForm
+  id="Gdev-new-form"
+>
+  <form #addForm="ngForm">
+    <mat-card *ngIf="!formName || formName == ''">
+      <mat-card-content>
+        <div
+          class="row"
+          id="form-name"
+        >
+          <mat-form-field
+            class="col s12"
+            appearance="outline"
+          >
+            <mat-label>Nombre del formulario</mat-label>
+            <input
+              matInput
+              type="text"
+              name="formName"
+              id="formName"
+              [(ngModel)]="newFormName"
+            />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-		<div class="row">
-			<div class="col s12">
-				<button
-					mat-raised-button
-					color="primary"
-					[disabled]="!changes"
-					(click)="saveForm()"
-				>
-					Guardar formulario
-				</button>
-			</div>
-		</div>
+    <div class="row">
+      <div class="col s12">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!changes"
+          (click)="saveForm()"
+        >
+          Guardar formulario
+        </button>
+      </div>
+    </div>
 
-		<div class="row">
-			<div class="col s12 l6" id="input-adder">
-				<mat-card>
-					<mat-card-header>
-						<mat-card-title>Editor de campos</mat-card-title>
-					</mat-card-header>
-					<mat-card-content>
-						<Gdev-input-adder [selectedInputTypes]="inputTypes"
-            [InputModel]="inputSelected!"></Gdev-input-adder>
-					</mat-card-content>
-				</mat-card>
-			</div>
+    <div class="row">
+      <div
+        class="col s12 l6"
+        id="input-adder"
+      >
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Editor de campos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <Gdev-input-adder
+              [selectedInputTypes]="inputTypes"
+              [InputModel]="inputSelected!"
+            ></Gdev-input-adder>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
-			<div class="col s12 l6" id="input-list" cdkDropList (cdkDropListDropped)="drop($event)">
-				<mat-card>
-					<mat-card-header>
-						<mat-card-title>Campos Agregados</mat-card-title>
-					</mat-card-header>
-					<mat-card-content>
-						<div class="input-item" *ngFor="let input of Inputs" cdkDrag (mousedown)="grabEffect()">
-							<mat-expansion-panel>
-								<mat-expansion-panel-header>
-									<div class="grabber">
+      <div
+        class="col s12 l6"
+        id="input-list"
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+      >
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Campos Agregados</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div
+              class="input-item"
+              *ngFor="let input of Inputs"
+              cdkDrag
+              (mousedown)="grabEffect()"
+            >
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <div class="grabber">
                     <mat-icon>drag_indicator</mat-icon>
-										<!-- <i class="fas fa-ellipsis-h"></i> -->
-									</div>
-									{{ input.etiqueta }}
-                  <small class="editInput blue-text" (click)="inputSelected = input">
+                    <!-- <i class="fas fa-ellipsis-h"></i> -->
+                  </div>
+                  {{ input.etiqueta }}
+                  <small
+                    class="editInput blue-text"
+                    (click)="inputSelected = input"
+                  >
                     <mat-icon>edit</mat-icon>
                   </small>
-									<small class="delInput red-text" (click)="delInput(input.ID)">
-										<mat-icon>delete</mat-icon>
-									</small>
-								</mat-expansion-panel-header>
-								<Gdev-inputs-render [input]="input"></Gdev-inputs-render>
+                  <small
+                    class="delInput red-text"
+                    (click)="delInput(input.ID)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </small>
+                </mat-expansion-panel-header>
+                <Gdev-inputs-render [input]="input"></Gdev-inputs-render>
 
                 <!-- <mat-action-row>
                   <button mat-button (click)="editInput(input.ID)">Editar</button>
                   <button mat-button (click)="delInput(input.ID)">Eliminar</button>
                 </mat-action-row> -->
-							</mat-expansion-panel>
-						</div>
-					</mat-card-content>
-				</mat-card>
-			</div>
-		</div>
-
-		
-	</form>
+              </mat-expansion-panel>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </form>
 </div>

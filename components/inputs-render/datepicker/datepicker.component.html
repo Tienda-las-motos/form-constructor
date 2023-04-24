@@ -9,14 +9,19 @@
 </div> -->
 
 <mat-form-field appearance="outline">
-    <mat-label>{{input.etiqueta}}</mat-label>
-    <input matInput 
-        [matDatepicker]="picker" 
-        [name]="input.ID" 
-        [value]="setValue()" 
-        [id]="input.ID" 
-        [placeholder]="input.placeholder || ''"
-        (dateChange)="getDate($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <mat-label>{{ input.etiqueta }}</mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [name]="input.ID"
+    [value]="setValue()"
+    [id]="input.ID"
+    [placeholder]="input.placeholder || ''"
+    (dateChange)="getDate($event)"
+  />
+  <mat-datepicker-toggle
+    matSuffix
+    [for]="picker"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

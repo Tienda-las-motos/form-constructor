@@ -1,8 +1,12 @@
 <div class="row">
   <div class="col s12">
-    <mat-form-field appearance="outline" matTooltip="{{ input.info }}">
+    <mat-form-field
+      appearance="outline"
+      matTooltip="{{ input.info }}"
+    >
       <mat-label>{{ input.etiqueta }}</mat-label>
-      <textarea matInput
+      <textarea
+        matInput
         type="text"
         [id]="input.ID"
         [name]="input.ID"

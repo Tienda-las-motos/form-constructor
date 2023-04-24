@@ -4,14 +4,10 @@ import { InputAdderService } from '../input-adder.service';
 @Component({
   selector: 'Gdev-number-form',
   templateUrl: './number-form.component.html',
-  styleUrls: ['./number-form.component.scss']
+  styleUrls: ['./number-form.component.scss'],
 })
 export class NumberFormComponent implements OnInit {
+  constructor(public _adder: InputAdderService) {}
 
-  constructor(public _adder: InputAdderService) { }
-
-  ngOnInit() {
-  }
-  
+  ngOnInit() {}
 }
-

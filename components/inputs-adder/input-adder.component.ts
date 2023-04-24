@@ -1,7 +1,13 @@
-import { Component, OnInit, Output, ViewEncapsulation, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+  Input,
+} from '@angular/core';
 import { InputModel } from './input models/input.model';
 import { InputAdderService } from './input-adder.service';
-import { InputTypes } from "./input models/inputTypes.model";
+import { InputTypes } from './input models/inputTypes.model';
 import { FormConstructorService } from '../../form-constructor.service';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilKeyChanged, filter } from 'rxjs/operators';
@@ -10,118 +16,120 @@ import { distinctUntilKeyChanged, filter } from 'rxjs/operators';
   selector: 'Gdev-input-adder',
   templateUrl: './input-adder.component.html',
   styleUrls: ['./input-adder.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class InputAdderComponent implements OnInit {
+  inputTypes: any;
+  @Input() selectedInputTypes: any[] = [];
+  private _inputModel: BehaviorSubject<InputModel> = new BehaviorSubject(
+    new InputModel('', '', '')
+  );
+  @Input() set InputModel(input: InputModel) {
+    this._inputModel.next(input);
+  }
+  inputModel!: InputModel;
+  inputType: string = '';
+  inputExtras: INPUTEXTRA[] = [];
 
-  inputTypes: any
-  @Input() selectedInputTypes: any[] = []
-  private _inputModel: BehaviorSubject<InputModel> = new BehaviorSubject(new InputModel('', '', '',));
-  @Input() set InputModel(input: InputModel) { this._inputModel.next(input); }
-  inputModel!: InputModel
-  inputType: string = ''
-  inputExtras: INPUTEXTRA[] = []
-
-  INPUT: any
-  created: boolean = false
+  INPUT: any;
+  created: boolean = false;
 
   constructor(
     public _inputAdder: InputAdderService,
     public _formConstructor: FormConstructorService
   ) {
-    this._inputModel.pipe(
-      filter( input => !!input ),
-      distinctUntilKeyChanged('ID')
-    ).subscribe( input => {
-      if (input.ID) this.created = true
-      this.inputModel = input
+    this._inputModel
+      .pipe(
+        filter((input) => !!input),
+        distinctUntilKeyChanged('ID')
+      )
+      .subscribe((input) => {
+        if (input.ID) this.created = true;
+        this.inputModel = input;
         if (
           this.inputModel!.tipo == 'select' ||
           this.inputModel!.tipo == 'radius' ||
           this.inputModel!.tipo == 'multiple'
         ) {
-          this._inputAdder.$opcionesArray = this.inputModel['opciones'] || []
+          this._inputAdder.$opcionesArray = this.inputModel['opciones'] || [];
         }
-    })
+      });
   }
 
   ngOnInit() {
-    this._inputAdder.loadInputTypes()
-      .subscribe(types => { this.inputTypes = types })
+    this._inputAdder.loadInputTypes().subscribe((types) => {
+      this.inputTypes = types;
+    });
 
-    this.loadInputTypes()
+    this.loadInputTypes();
     // console.log( this.inputModel )
-
   }
 
   loadInputTypes() {
     if (!this.selectedInputTypes) {
       // this.inputTypes = this._inputAdder.loadInputTypes
-      this.inputTypes = InputTypes
+      this.inputTypes = InputTypes;
     } else {
-      this.inputTypes = []
-      let types = InputTypes
-      this.selectedInputTypes.forEach(inputType => {
-        let theType = types.find(type => type.type == inputType)
-        this.inputTypes.push(theType)
-      })
+      this.inputTypes = [];
+      let types = InputTypes;
+      this.selectedInputTypes.forEach((inputType) => {
+        let theType = types.find((type) => type.type == inputType);
+        this.inputTypes.push(theType);
+      });
     }
   }
 
-  checkOptions():boolean {
+  checkOptions(): boolean {
     if (
       this.inputModel!.tipo == 'select' ||
       this.inputModel!.tipo == 'radius' ||
       this.inputModel!.tipo == 'multiple'
     ) {
-      return this._inputAdder.$opcionesArray.length == 0 ? true : false
+      return this._inputAdder.$opcionesArray.length == 0 ? true : false;
     } else {
-      return false
+      return false;
     }
   }
 
-
-  checkData():boolean {
-    return (
-      this.inputModel!.tipo == 'range' ||
-        this.inputModel!.tipo == 'level') && (
-        !this._inputAdder.$Input['minCant'] ||
-        !this._inputAdder.$Input['maxCant']
-      ) ?  false :  true
-
+  checkData(): boolean {
+    return (this.inputModel!.tipo == 'range' ||
+      this.inputModel!.tipo == 'level') &&
+      (!this._inputAdder.$Input['minCant'] ||
+        !this._inputAdder.$Input['maxCant'])
+      ? false
+      : true;
   }
 
+  waitFor = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-
-  waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
-
-  onRequired(e: any) {
-  }
+  onRequired(e: any) {}
 
   async onCreate() {
-    await this.waitFor(100)
-    await this._inputAdder.addInput(this.inputModel!)
-    this.inputModel = new InputModel( '', '', '' )
-    this.created = false
+    await this.waitFor(100);
+    await this._inputAdder.addInput(this.inputModel!);
+    this.inputModel = new InputModel('', '', '');
+    this.created = false;
   }
 
   cancelForm() {
-    this.inputModel = new InputModel( '', '', '' )
-    this.created = false
+    this.inputModel = new InputModel('', '', '');
+    this.created = false;
   }
 
-  preventKeypress( event: any ) {
+  preventKeypress(event: any) {
     const k = event.charCode;
     if (
-      k > 96 && k < 123 || // letras
+      (k > 96 && k < 123) || // letras
       k == 8 || // backspace
       k == 189 || // guión
       k == 95 // guión bajo
-    ) return true
-    else return false
+    )
+      return true;
+    else return false;
   }
-
 }
 
-
-export interface INPUTEXTRA { key: string, value: any}
+export interface INPUTEXTRA {
+  key: string;
+  value: any;
+}

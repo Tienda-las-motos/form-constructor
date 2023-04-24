@@ -1,50 +1,108 @@
 <div [ngSwitch]="input.tipo">
-    <div *ngSwitchCase="'text'">
-        <Gdev-text-input [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-text-input>
-    </div>
-    <div *ngSwitchCase="'email'">
-        <Gdev-text-input [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-text-input>
-    </div>
-    <div *ngSwitchCase="'password'">
-        <Gdev-text-input [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-text-input>
-    </div>
-    <div *ngSwitchCase="'number'">
-        <Gdev-number-input [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-number-input>
-    </div>
-    <div *ngSwitchCase="'phone'">
-        <Gdev-number-input [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-number-input>
-    </div>
-    <div *ngSwitchCase="'textarea'">
-        <Gdev-textarea [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-textarea>
-    </div>
-    <div *ngSwitchCase="'select'">
-        <Gdev-select [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-select>
-    </div>
-    <div *ngSwitchCase="'radius'">
-        <Gdev-radius [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-radius>
-    </div>
-    <div *ngSwitchCase="'multiple'">
-        <Gdev-multiple [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-multiple>
-    </div>
-    <div *ngSwitchCase="'checkbox'">
-        <Gdev-checkbox [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-checkbox>
-    </div>
-    <div *ngSwitchCase="'switch'">
-        <Gdev-switch [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-switch>
-    </div>
-    <div *ngSwitchCase="'level'">
-        <Gdev-level [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-level>
-    </div>
-    <div *ngSwitchCase="'date'">
-        <Gdev-datepicker [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-datepicker>
-    </div>
-    <div *ngSwitchCase="'time'">
-        <Gdev-timepicker [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-timepicker>
-    </div>
-    <div *ngSwitchCase="'file'">
-        <Gdev-file [value]="value" [input]="input" (getValue)="catchValue($event)"></Gdev-file>
-    </div>
-    <div *ngSwitchDefault>
-
-    </div>
+  <div *ngSwitchCase="'text'">
+    <Gdev-text-input
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-text-input>
+  </div>
+  <div *ngSwitchCase="'email'">
+    <Gdev-text-input
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-text-input>
+  </div>
+  <div *ngSwitchCase="'password'">
+    <Gdev-text-input
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-text-input>
+  </div>
+  <div *ngSwitchCase="'number'">
+    <Gdev-number-input
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-number-input>
+  </div>
+  <div *ngSwitchCase="'phone'">
+    <Gdev-number-input
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-number-input>
+  </div>
+  <div *ngSwitchCase="'textarea'">
+    <Gdev-textarea
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-textarea>
+  </div>
+  <div *ngSwitchCase="'select'">
+    <Gdev-select
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-select>
+  </div>
+  <div *ngSwitchCase="'radius'">
+    <Gdev-radius
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-radius>
+  </div>
+  <div *ngSwitchCase="'multiple'">
+    <Gdev-multiple
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-multiple>
+  </div>
+  <div *ngSwitchCase="'checkbox'">
+    <Gdev-checkbox
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-checkbox>
+  </div>
+  <div *ngSwitchCase="'switch'">
+    <Gdev-switch
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-switch>
+  </div>
+  <div *ngSwitchCase="'level'">
+    <Gdev-level
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-level>
+  </div>
+  <div *ngSwitchCase="'date'">
+    <Gdev-datepicker
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-datepicker>
+  </div>
+  <div *ngSwitchCase="'time'">
+    <Gdev-timepicker
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-timepicker>
+  </div>
+  <div *ngSwitchCase="'file'">
+    <Gdev-file
+      [value]="value"
+      [input]="input"
+      (getValue)="catchValue($event)"
+    ></Gdev-file>
+  </div>
+  <div *ngSwitchDefault></div>
 </div>

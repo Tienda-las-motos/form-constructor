@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FormConstructorRoutingModule } from "./form-constructor-routing.module";
-import { FormConstructorComponent } from "./form-constructor.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormConstructorRoutingModule } from './form-constructor-routing.module';
+import { FormConstructorComponent } from './form-constructor.component';
 import { NewFormComponent } from './components/new-form/new-form.component';
 
-import { DragDropModule } from "@angular/cdk/drag-drop";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MaterialModule } from 'shared/material.module';
 
 import { InputAdderComponent } from './components/inputs-adder/input-adder.component';
-import { NumberFormComponent } from "./components/inputs-adder/number-form/number-form.component";
+import { NumberFormComponent } from './components/inputs-adder/number-form/number-form.component';
 import { SelectFormComponent } from './components/inputs-adder/select-form/select-form.component';
 import { RadiusFormComponent } from './components/inputs-adder/radius-form/radius-form.component';
 import { SwitchFormComponent } from './components/inputs-adder/switch-form/switch-form.component';
@@ -20,12 +20,10 @@ import { DateFormComponent } from './components/inputs-adder/date-form/date-form
 import { TimeFormComponent } from './components/inputs-adder/time-form/time-form.component';
 import { FileFormComponent } from './components/inputs-adder/file-form/file-form.component';
 
-import { InputRenderModule } from "./components/inputs-render/input-render.module";
+import { InputRenderModule } from './components/inputs-render/input-render.module';
 import { InputsRenderComponent } from './components/inputs-render/inputs-render.component';
 import { CallFormComponent } from './components/call-form/call-form.component';
 import { OptionsFormComponent } from './components/inputs-adder/options-form/options-form.component';
-
-
 
 @NgModule({
   declarations: [
@@ -55,10 +53,6 @@ import { OptionsFormComponent } from './components/inputs-adder/options-form/opt
     MaterialModule,
     DragDropModule,
   ],
-  exports: [
-    NewFormComponent,
-    InputsRenderComponent,
-    CallFormComponent
-  ]
+  exports: [NewFormComponent, InputsRenderComponent, CallFormComponent],
 })
-export class FormConstructorModule { }
+export class FormConstructorModule {}

@@ -1,181 +1,239 @@
-<div class="row" id="data-form">
-	<p>Personaliza el campo y agregalo a la lista de campos agregados al formulario. Una vez terminado, no olvide Guardar el formulario</p>
-	<form #addInput="ngForm" *ngIf="inputModel">
-		<div class="row" id="tipo-selecter">
+<div
+  class="row"
+  id="data-form"
+>
+  <p>
+    Personaliza el campo y agregalo a la lista de campos agregados al
+    formulario. Una vez terminado, no olvide Guardar el formulario
+  </p>
+  <form
+    #addInput="ngForm"
+    *ngIf="inputModel"
+  >
+    <div
+      class="row"
+      id="tipo-selecter"
+    >
+      <!-- TYPE -->
+      <mat-form-field
+        appearance="outline"
+        class="col {{ _formConstructor.mediaWidth }}"
+      >
+        <mat-label>Tipo de campo</mat-label>
+        <mat-select name="tipo">
+          <mat-option
+            *ngFor="let tipo of inputTypes"
+            [value]="tipo.type"
+            (click)="inputModel.tipo = tipo.type"
+          >
+            {{ tipo.displayName }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>
+          Selecciona el tipo de dato recibirá este campo, puede ser diferentes
+          tipos de opciones.
+        </mat-hint>
+      </mat-form-field>
 
-			<!-- TYPE -->
-			<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
-				<mat-label>Tipo de campo</mat-label>
-				<mat-select name="tipo">
-					<mat-option
-						*ngFor="let tipo of inputTypes"
-						[value]="tipo.type"
-						(click)="inputModel.tipo = tipo.type"
-					>
-						{{ tipo.displayName }}
-					</mat-option>
-				</mat-select>
-				<mat-hint>
-					Selecciona el tipo de dato recibirá este campo, puede ser diferentes tipos de opciones.
-				</mat-hint>
-			</mat-form-field>
-			
-			<!-- ID -->
-			<mat-form-field appearance="outline" class="col"
-			id="ID"
-			 [ngClass]="_formConstructor.mediaWidth">
+      <!-- ID -->
+      <mat-form-field
+        appearance="outline"
+        class="col"
+        id="ID"
+        [ngClass]="_formConstructor.mediaWidth"
+      >
         <mat-label>Identificador</mat-label>
-				<input
+        <input
           matInput
-					type="text"
-					name="ID"
-					id="ID"
-					placeholder="Ej: primerNombre"
-					[(ngModel)]="inputModel.ID"
-					#ID="ngModel"
-					(keypress)="preventKeypress($event)"
-					required
-					[disabled]="created"
-				/>
-				<mat-hint>
-					Un nombre sin espacios, diagonales ni caracteres especiales como acentos, comillas o numerales
-				</mat-hint>
-			</mat-form-field>
+          type="text"
+          name="ID"
+          id="ID"
+          placeholder="Ej: primerNombre"
+          [(ngModel)]="inputModel.ID"
+          #ID="ngModel"
+          (keypress)="preventKeypress($event)"
+          required
+          [disabled]="created"
+        />
+        <mat-hint>
+          Un nombre sin espacios, diagonales ni caracteres especiales como
+          acentos, comillas o numerales
+        </mat-hint>
+      </mat-form-field>
 
-			<!-- REQUIRED -->
-			<div class="col s6">
-				<input type="text" matInput hidden>
-				<mat-slide-toggle 
-				name="requerido" 
-				[(ngModel)]="inputModel.requerido"
-				>Requerido</mat-slide-toggle>
-				<br>
-				<small>
-					Activa este switch si quieres que tu campo sea necesario llenarse
-				</small>
-			</div>
-
-			<!-- VISIBLE -->
-			<div class="col s6">
-				<input type="text" matInput hidden>
-				<mat-slide-toggle 
-				name="visibile" 
-				[(ngModel)]="inputModel.visibile"
-				>Visible</mat-slide-toggle>
-				<br>
-				<small class="blue-text">
-					Este switch permite manejar las vistas públicas del campo a través de desarrollo
-				</small>
-			</div>
-		</div>
-
-		<!-- LABEL -->
-		<div class="row" >
-			<mat-form-field appearance="outline" class="col input-field {{ _formConstructor.mediaWidth }}">
-				<input matInput
-					type="text"
-					name="etiqueta"
-					id="etiqueta"
-					placeholder="Ej: Primer Nombre"
-					value="Input sin nombre"
-					[(ngModel)]="inputModel.etiqueta"
-					#etiqueta="ngModel"
-					required
-				/>
-				<mat-label>Etiqueta</mat-label>
-				<mat-hint>Nombre visible del campo</mat-hint>
-			</mat-form-field>
-
-			<!-- DESCRIPTION -->
-			<mat-form-field appearance="outline" class="col {{ _formConstructor.mediaWidth }}">
-				<textarea matInput
-					name="info"
-					class="materialize-textarea"
-					id="info"
-					cols="30"
-					rows="3"
-					[(ngModel)]="inputModel.info"
-					placeholder=" (Opcional) Descripción del input "
-				></textarea>
-				<mat-label>Descripción o información</mat-label>
-				<mat-hint>
-					Una descripción que le recuerde a los usuarios qué hará este campo
-				</mat-hint>
-			</mat-form-field>
-
-			<!-- PLACEHOLDER -->
-			<mat-form-field appearance="outline"
-				class="col input-field {{ _formConstructor.mediaWidth }}"
-				*ngIf="
-					inputModel.tipo == 'text' ||
-					inputModel.tipo == 'number' ||
-					inputModel.tipo == 'select' ||
-					inputModel.tipo == 'multiple' ||
-					inputModel.tipo == 'textarea' ||
-					inputModel.tipo == 'file'
-				"
-			>
-				<input matInput
-					type="text"
-					name="placeholder"
-					id="placeholder"
-					placeholder="Algo como esto"
-					[(ngModel)]="inputModel.placeholder"
-					#placeholder="ngModel"
-				/>
-				<mat-label>Placeholder</mat-label>
-				<mat-hint>
-					Probablemente un ejemplo o un llamado a la acción
-				</mat-hint>
-			</mat-form-field>
-		</div>
-
-		
-    <div class="row" id="data-extra">
-			<span [ngSwitch]="inputModel.tipo">
-				<span *ngSwitchCase="'number'">
-					<Gdev-number-form></Gdev-number-form>
-				</span>
-				<span *ngSwitchCase="'phone'">
-					<Gdev-number-form></Gdev-number-form>
-				</span>
-				<span *ngSwitchCase="'select'">
-					<Gdev-options-form></Gdev-options-form>
-				</span>
-				<span *ngSwitchCase="'radius'">
-					<Gdev-options-form></Gdev-options-form>
-				</span>
-				<span *ngSwitchCase="'switch'">
-					<Gdev-switch-form></Gdev-switch-form>
-				</span>
-				<span *ngSwitchCase="'range'">
-					<Gdev-range-form></Gdev-range-form>
-				</span>
-				<span *ngSwitchCase="'level'">
-					<Gdev-level-form></Gdev-level-form>
-				</span>
-				<span *ngSwitchCase="'multiple'">
-					<Gdev-options-form></Gdev-options-form>
-				</span>
-				<span *ngSwitchDefault></span>
-			</span>
-		</div>
-
-		<div class="row" id="bottom-bar">
-			<div class="col s12 center">
-				<small>Usa el botón de <b>Agregar</b> para mandar este campo a la lista de campos que tendrá este formulario. <span class="blue-text">NOTA: Esto no guardará el formulario</span> </small>
-				<br>
-			</div>
-			<div class="col s6 center">
-				<button mat-raised-button color="primary" type="button"
-        (click)="onCreate()" [disabled]="!addInput.form.valid && checkOptions()">
-					Agregar
-				</button>
-			</div>
-      <div class="col s6 center">
-        <button mat-raised-button color="accent" type="button"
-        (click)="cancelForm()">Cancelar</button>
+      <!-- REQUIRED -->
+      <div class="col s6">
+        <input
+          type="text"
+          matInput
+          hidden
+        />
+        <mat-slide-toggle
+          name="requerido"
+          [(ngModel)]="inputModel.requerido"
+          >Requerido</mat-slide-toggle
+        >
+        <br />
+        <small>
+          Activa este switch si quieres que tu campo sea necesario llenarse
+        </small>
       </div>
-		</div>
-	</form>
+
+      <!-- VISIBLE -->
+      <div class="col s6">
+        <input
+          type="text"
+          matInput
+          hidden
+        />
+        <mat-slide-toggle
+          name="visibile"
+          [(ngModel)]="inputModel.visibile"
+          >Visible</mat-slide-toggle
+        >
+        <br />
+        <small class="blue-text">
+          Este switch permite manejar las vistas públicas del campo a través de
+          desarrollo
+        </small>
+      </div>
+    </div>
+
+    <!-- LABEL -->
+    <div class="row">
+      <mat-form-field
+        appearance="outline"
+        class="col input-field {{ _formConstructor.mediaWidth }}"
+      >
+        <input
+          matInput
+          type="text"
+          name="etiqueta"
+          id="etiqueta"
+          placeholder="Ej: Primer Nombre"
+          value="Input sin nombre"
+          [(ngModel)]="inputModel.etiqueta"
+          #etiqueta="ngModel"
+          required
+        />
+        <mat-label>Etiqueta</mat-label>
+        <mat-hint>Nombre visible del campo</mat-hint>
+      </mat-form-field>
+
+      <!-- DESCRIPTION -->
+      <mat-form-field
+        appearance="outline"
+        class="col {{ _formConstructor.mediaWidth }}"
+      >
+        <textarea
+          matInput
+          name="info"
+          class="materialize-textarea"
+          id="info"
+          cols="30"
+          rows="3"
+          [(ngModel)]="inputModel.info"
+          placeholder=" (Opcional) Descripción del input "
+        ></textarea>
+        <mat-label>Descripción o información</mat-label>
+        <mat-hint>
+          Una descripción que le recuerde a los usuarios qué hará este campo
+        </mat-hint>
+      </mat-form-field>
+
+      <!-- PLACEHOLDER -->
+      <mat-form-field
+        appearance="outline"
+        class="col input-field {{ _formConstructor.mediaWidth }}"
+        *ngIf="
+          inputModel.tipo == 'text' ||
+          inputModel.tipo == 'number' ||
+          inputModel.tipo == 'select' ||
+          inputModel.tipo == 'multiple' ||
+          inputModel.tipo == 'textarea' ||
+          inputModel.tipo == 'file'
+        "
+      >
+        <input
+          matInput
+          type="text"
+          name="placeholder"
+          id="placeholder"
+          placeholder="Algo como esto"
+          [(ngModel)]="inputModel.placeholder"
+          #placeholder="ngModel"
+        />
+        <mat-label>Placeholder</mat-label>
+        <mat-hint> Probablemente un ejemplo o un llamado a la acción </mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="row"
+      id="data-extra"
+    >
+      <span [ngSwitch]="inputModel.tipo">
+        <span *ngSwitchCase="'number'">
+          <Gdev-number-form></Gdev-number-form>
+        </span>
+        <span *ngSwitchCase="'phone'">
+          <Gdev-number-form></Gdev-number-form>
+        </span>
+        <span *ngSwitchCase="'select'">
+          <Gdev-options-form></Gdev-options-form>
+        </span>
+        <span *ngSwitchCase="'radius'">
+          <Gdev-options-form></Gdev-options-form>
+        </span>
+        <span *ngSwitchCase="'switch'">
+          <Gdev-switch-form></Gdev-switch-form>
+        </span>
+        <span *ngSwitchCase="'range'">
+          <Gdev-range-form></Gdev-range-form>
+        </span>
+        <span *ngSwitchCase="'level'">
+          <Gdev-level-form></Gdev-level-form>
+        </span>
+        <span *ngSwitchCase="'multiple'">
+          <Gdev-options-form></Gdev-options-form>
+        </span>
+        <span *ngSwitchDefault></span>
+      </span>
+    </div>
+
+    <div
+      class="row"
+      id="bottom-bar"
+    >
+      <div class="col s12 center">
+        <small
+          >Usa el botón de <b>Agregar</b> para mandar este campo a la lista de
+          campos que tendrá este formulario.
+          <span class="blue-text">NOTA: Esto no guardará el formulario</span>
+        </small>
+        <br />
+      </div>
+      <div class="col s6 center">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="onCreate()"
+          [disabled]="!addInput.form.valid && checkOptions()"
+        >
+          Agregar
+        </button>
+      </div>
+      <div class="col s6 center">
+        <button
+          mat-raised-button
+          color="accent"
+          type="button"
+          (click)="cancelForm()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

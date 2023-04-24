@@ -1,7 +1,15 @@
 <div class="row">
-	<div class="col s12">
-		<mat-slide-toggle [color]="'primary'" (change)="onSwitch($event)">
-			{{ input.etiqueta }} <span class="red-text" *ngIf="input.requerido">*</span>
-		</mat-slide-toggle>
-	</div>
+  <div class="col s12">
+    <mat-slide-toggle
+      [color]="'primary'"
+      (change)="onSwitch($event)"
+    >
+      {{ input.etiqueta }}
+      <span
+        class="red-text"
+        *ngIf="input.requerido"
+        >*</span
+      >
+    </mat-slide-toggle>
+  </div>
 </div>

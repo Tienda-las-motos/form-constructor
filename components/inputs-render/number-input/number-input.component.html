@@ -1,19 +1,21 @@
-  <!-- <div class="col s12" *ngIf="input"> -->
-    <mat-form-field appearance="outline"
-    matTooltip="{{ input.info }}">
-      <mat-label> {{ input.etiqueta }} </mat-label>
-      <input
-        matInput
-        type="number"
-        [id]="input.ID"
-        [name]="input.ID"
-        [value]="setValue()"
-        [required]="input.requerido"
-        placeholder="{{ input.placeholder }}"
-        [min]="input.min"
-        [max]="input.max"
-        (blur)="emitValue(input, $event)"
-        (keyup)="emitValue(input, $event)"
-      />
-    </mat-form-field>
-  <!-- </div> -->
+<!-- <div class="col s12" *ngIf="input"> -->
+<mat-form-field
+  appearance="outline"
+  matTooltip="{{ input.info }}"
+>
+  <mat-label> {{ input.etiqueta }} </mat-label>
+  <input
+    matInput
+    type="number"
+    [id]="input.ID"
+    [name]="input.ID"
+    [value]="setValue()"
+    [required]="input.requerido"
+    placeholder="{{ input.placeholder }}"
+    [min]="input.min"
+    [max]="input.max"
+    (blur)="emitValue(input, $event)"
+    (keyup)="emitValue(input, $event)"
+  />
+</mat-form-field>
+<!-- </div> -->

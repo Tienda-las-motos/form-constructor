@@ -1,19 +1,25 @@
-<mat-form-field class="col s6" appearance="outline">
+<mat-form-field
+  class="col s6"
+  appearance="outline"
+>
   <mat-label>Valor mínimo</mat-label>
   <input
-  matInput
-  type="number"
-  name="min"
-  (blur)="_adder.getAttr('min', +$event)"
-  >
+    matInput
+    type="number"
+    name="min"
+    (blur)="_adder.getAttr('min', +$event)"
+  />
 </mat-form-field>
 
-<mat-form-field class="col s6" appearance="outline">
+<mat-form-field
+  class="col s6"
+  appearance="outline"
+>
   <mat-label>Valor máximo</mat-label>
   <input
-  matInput
-  type="number"
-  name="max"
-  (blur)="_adder.getAttr('max', +$event)"
-  >
+    matInput
+    type="number"
+    name="max"
+    (blur)="_adder.getAttr('max', +$event)"
+  />
 </mat-form-field>

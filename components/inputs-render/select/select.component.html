@@ -1,9 +1,21 @@
-    <mat-form-field class="label-cont" appearance="outline" matTooltip="{{ input.info }}">
-      <mat-label> {{input.etiqueta}} </mat-label>
-      <mat-select placeholder="{{input.placeholder}}" [value]="setValue()" name="item"
-      (selectionChange)="emitValue(input, $event)" [required]="input.requerido">
-        <mat-option *ngFor="let item of input.opciones" [value]="item.value">
-          {{item.value}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<mat-form-field
+  class="label-cont"
+  appearance="outline"
+  matTooltip="{{ input.info }}"
+>
+  <mat-label> {{ input.etiqueta }} </mat-label>
+  <mat-select
+    placeholder="{{ input.placeholder }}"
+    [value]="setValue()"
+    name="item"
+    (selectionChange)="emitValue(input, $event)"
+    [required]="input.requerido"
+  >
+    <mat-option
+      *ngFor="let item of input.opciones"
+      [value]="item.value"
+    >
+      {{ item.value }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

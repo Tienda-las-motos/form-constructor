@@ -1,6 +1,9 @@
-<mat-form-field appearance="outline" class="col s12"
-*ngFor="let opcion of _adder.$opcionesArray; index as i">
-  <mat-label>Opción {{i + 1}}</mat-label>
+<mat-form-field
+  appearance="outline"
+  class="col s12"
+  *ngFor="let opcion of _adder.$opcionesArray; index as i"
+>
+  <mat-label>Opción {{ i + 1 }}</mat-label>
   <input
     matInput
     #opcionInput
@@ -11,19 +14,27 @@
     id="opcion.index"
     [value]="opcion.value"
     (blur)="onBlur(opcion.index, $event)"
-    />
-  <button mat-icon-button matSuffix (click)="_adder.delOpcion(i)"  type="button">
+  />
+  <button
+    mat-icon-button
+    matSuffix
+    (click)="_adder.delOpcion(i)"
+    type="button"
+  >
     <mat-icon>close</mat-icon>
   </button>
-
 </mat-form-field>
 
-<mat-form-field appearance="outline" class="col s12" *ngIf="addInput">
+<mat-form-field
+  appearance="outline"
+  class="col s12"
+  *ngIf="addInput"
+>
   <mat-label>Agregar opción</mat-label>
-  <input matInput
+  <input
+    matInput
     type="text"
     name="opcion"
     (focus)="addOpcionField()"
-    />
-
+  />
 </mat-form-field>

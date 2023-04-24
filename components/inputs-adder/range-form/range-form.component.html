@@ -1,38 +1,54 @@
 <mat-form-field class="col s9 input-field">
-    <input matInput
-      type="text"
-      name="minText"
-      (blur)="_adder.getAttr('minText', $event)">
-    <mat-label for="minText">Etiqueta min</mat-label>
+  <input
+    matInput
+    type="text"
+    name="minText"
+    (blur)="_adder.getAttr('minText', $event)"
+  />
+  <mat-label for="minText">Etiqueta min</mat-label>
 </mat-form-field>
 <mat-form-field class="col s3 input-field">
-    <input matInput
-      type="text"
-      name="minCant"
-      (blur)="_adder.getAttr('minCant', $event)" required>
-    <mat-label for="minCant">Min</mat-label>
+  <input
+    matInput
+    type="text"
+    name="minCant"
+    (blur)="_adder.getAttr('minCant', $event)"
+    required
+  />
+  <mat-label for="minCant">Min</mat-label>
 </mat-form-field>
 
 <mat-form-field class="col s3 input-field">
-    <input matInput
-      type="text"
-      name="maxCant"
-      (blur)="_adder.getAttr('maxCant', $event)" required>
-    <mat-label for="maxCant">Max</mat-label>
+  <input
+    matInput
+    type="text"
+    name="maxCant"
+    (blur)="_adder.getAttr('maxCant', $event)"
+    required
+  />
+  <mat-label for="maxCant">Max</mat-label>
 </mat-form-field>
 <mat-form-field class="col s9 input-field">
-    <input matInput
-      type="text"
-      name="maxText"
-      (blur)="_adder.getAttr('maxText', $event)">
-    <mat-label for="maxText">Etiqueta max</mat-label>
+  <input
+    matInput
+    type="text"
+    name="maxText"
+    (blur)="_adder.getAttr('maxText', $event)"
+  />
+  <mat-label for="maxText">Etiqueta max</mat-label>
 </mat-form-field>
 
 <mat-form-field class="col s6 input-field">
-    <input matInput
-      type="number"
-      name="steps"
-      (blur)="_adder.getAttr('steps', +$event)"
-      placeholder="Cantidad a saltar al mover el slider">
-    <mat-label for="steps" class="active">Saltos</mat-label>
+  <input
+    matInput
+    type="number"
+    name="steps"
+    (blur)="_adder.getAttr('steps', +$event)"
+    placeholder="Cantidad a saltar al mover el slider"
+  />
+  <mat-label
+    for="steps"
+    class="active"
+    >Saltos</mat-label
+  >
 </mat-form-field>

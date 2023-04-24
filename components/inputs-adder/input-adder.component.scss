@@ -2,7 +2,11 @@ select {
   display: block !important;
 }
 
-$shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
+$shadow: 0 0 3px
+  rgba(
+    $color: #000000,
+    $alpha: 0.5,
+  );
 #data-form {
   padding: 3%;
 }
@@ -18,11 +22,9 @@ $shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
   }
 }
 
-
-
 .flat {
   ::ng-deep {
-    .mat-form-field-wrapper{
+    .mat-form-field-wrapper {
       .mat-form-field-underline {
         display: none !important;
       }

@@ -3,12 +3,11 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 @Component({
   selector: 'Gdev-info-box',
   templateUrl: './info-box.component.html',
-  styleUrls: ['./info-box.component.scss']
+  styleUrls: ['./info-box.component.scss'],
 })
 export class InfoBoxComponent implements OnInit {
-
-  @Input() data!: Data
-  constructor() { }
+  @Input() data!: Data;
+  constructor() {}
 
   ngOnInit() {
     if (
@@ -31,11 +30,10 @@ export class InfoBoxComponent implements OnInit {
   hideInfo() {
     // $(`#${this.data.ID}.info-box`).fadeOut()
   }
-
 }
 
 export interface Data {
-  info: string
-  ID: string
-  tipo: string
+  info: string;
+  ID: string;
+  tipo: string;
 }

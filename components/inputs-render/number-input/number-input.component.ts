@@ -4,35 +4,31 @@ import { NumberInputModel, Colores } from './number-input.model';
 @Component({
   selector: 'Gdev-number-input',
   templateUrl: './number-input.component.html',
-  styleUrls: ['./number-input.component.scss']
+  styleUrls: ['./number-input.component.scss'],
 })
 export class NumberInputComponent implements OnInit {
+  @Input() input: NumberInputModel;
 
-  @Input() input: NumberInputModel
-
-  @Input() value: any
-  @Output() getValue: EventEmitter<any> = new EventEmitter()
+  @Input() value: any;
+  @Output() getValue: EventEmitter<any> = new EventEmitter();
   constructor() {
-    this.input = new NumberInputModel('','',false)
-   }
-
-  ngOnInit() {
+    this.input = new NumberInputModel('', '', false);
   }
+
+  ngOnInit() {}
 
   setValue() {
     if (typeof this.value === 'object') {
-      return this.value ? (this.value[this.input.ID] || 0) : false
+      return this.value ? this.value[this.input.ID] || 0 : false;
     } else {
-      return this.value ? this.value : false
+      return this.value ? this.value : false;
     }
   }
 
   emitValue(input: any, event: any) {
     this.getValue.emit({
-      key:input.ID,
-      value:event.target.value
-  })
+      key: input.ID,
+      value: event.target.value,
+    });
   }
-
-
 }

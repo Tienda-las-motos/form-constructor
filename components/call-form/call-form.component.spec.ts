@@ -8,9 +8,8 @@ describe('CallFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CallFormComponent ]
-    })
-    .compileComponents();
+      declarations: [CallFormComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

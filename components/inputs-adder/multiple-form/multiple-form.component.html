@@ -1,20 +1,50 @@
 <div class="col s12 input-field">
-
-    <div class="opcion" *ngFor="let opcion of _adder.$opcionesArray; index as i">
-        <p>
-            <input class="filled-in" [name]="opcion.index" type="checkbox" [id]="opcion.index" />
-            <label [for]="opcion.index"></label>
-            <input #opcionInput class="opcion-input" onkeypress="this.style.width = ((this.value.length + 4) * 8) + 'px';" type="text" [name]="opcion.index" [id]="opcion.index" [value]="opcion.value" (blur)="_adder.addOpcionValue(opcion.index, $event)" />
-            <span class="del-opcion" (click)="_adder.delOpcion(i)">
-                <i class="fas fa-times"></i>
-            </span>
-        </p>
-
-    </div>
-
-    <p class="opcion-nueva">
-        <input class="filled-in" name="check-nuevo" type="checkbox" id="check-nuevo" />
-        <label for="opcion-nueva"></label>
-        <input class="opcion-nueva" type="text" name="opcion-nueva" id="opcion-nueva" (focus)="_adder.addOpcionField()" placeholder="Opción nueva" />
+  <div
+    class="opcion"
+    *ngFor="let opcion of _adder.$opcionesArray; index as i"
+  >
+    <p>
+      <input
+        class="filled-in"
+        [name]="opcion.index"
+        type="checkbox"
+        [id]="opcion.index"
+      />
+      <label [for]="opcion.index"></label>
+      <input
+        #opcionInput
+        class="opcion-input"
+        onkeypress="this.style.width = ((this.value.length + 4) * 8) + 'px';"
+        type="text"
+        [name]="opcion.index"
+        [id]="opcion.index"
+        [value]="opcion.value"
+        (blur)="_adder.addOpcionValue(opcion.index, $event)"
+      />
+      <span
+        class="del-opcion"
+        (click)="_adder.delOpcion(i)"
+      >
+        <i class="fas fa-times"></i>
+      </span>
     </p>
+  </div>
+
+  <p class="opcion-nueva">
+    <input
+      class="filled-in"
+      name="check-nuevo"
+      type="checkbox"
+      id="check-nuevo"
+    />
+    <label for="opcion-nueva"></label>
+    <input
+      class="opcion-nueva"
+      type="text"
+      name="opcion-nueva"
+      id="opcion-nueva"
+      (focus)="_adder.addOpcionField()"
+      placeholder="Opción nueva"
+    />
+  </p>
 </div>
